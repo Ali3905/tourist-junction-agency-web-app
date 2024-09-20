@@ -136,10 +136,10 @@
   [
     { name: "vehicleNumber", id: "vehicleNumber", type: "text", label: "Vehicle Number", required: true, unique: true },
     { name: "garageName", id: "garageName", type: "text", label: "Garage Name", required: true },
-    { name: "garageNumber", id: "garageNumber", type: "text", label: "Garage Number", required: true },
+    { name: "mobileNumber", id: "mobileNumber", type: "text", label: "Garage mob Number", required: true },
     { name: "date", id: "date", type: "date", label: "Date", required: true },
-    { name: "workDescription", id: "workDescription", type: "text", lcabel: "Work Description" },
-    { name: "bill", id: "bill", type: "text", label: "Bill Number", required: true, unique: true }
+    { name: "workDescription", id: "workDescription", type: "text", label: "Work Description" },
+    { name: "photo", id: "photo", type: "file", label: "Bill Photo", required: true, unique: true }
   ]
 
 
@@ -199,7 +199,7 @@
 //empty vehicle
 
 [
-    { name: "vehicle", id: "vehicle", type: "select", label: "Vehicle", ref: "vehicle" }, 
+    { name: "vehicleNo", id: "vehicle", type: "select", label: "Vehicle", ref: "vehicle" }, 
     { name: "moreInformation", id: "moreInformation", type: "textarea", label: "More Information" },
     { name: "departurePlace", id: "departurePlace", type: "text", label: "Departure Place" },
     { name: "destinationPlace", id: "destinationPlace", type: "text", label: "Destination Place" },

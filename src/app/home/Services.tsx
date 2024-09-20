@@ -3,6 +3,7 @@ import ServicesCard from './ServicesCard';
 
 
 
+
 const Services = () => {
     const servicesData = [
         {
@@ -28,10 +29,12 @@ const Services = () => {
         {
           title: "Employee Details",
           imageSrc: "/dummy-car.jpeg",
+          link: "/employee-details",
         },
         {
           title: "Search Drivers",
           imageSrc: "/dummy-car.jpeg",
+          link: "/search-drivers"
         },
         {
           title: "My Driver",
@@ -40,14 +43,17 @@ const Services = () => {
         {
           title: "Cleaner's List",
           imageSrc: "/dummy-car.jpeg",
+          link:"/cleaners-list"
         },
         {
           title: "Vehicle Documents",
           imageSrc: "/dummy-car.jpeg",
+          link:"/vehicle-documents"
         },
         {
           title: "All Vehicles List",
           imageSrc: "/dummy-car.jpeg",
+          link:"/all-vehicles-list"
         },
         {
           title: "Technician Support",
@@ -57,10 +63,12 @@ const Services = () => {
         {
           title: "Create Empty Vehicle Routes",
           imageSrc: "/dummy-car.jpeg",
+          link:'/create-empty-vehicles'
         },
         {
           title: "Search Empty Vehicle",
           imageSrc: "/dummy-car.jpeg",
+          link:'/search-empty-vehicles'
         },
 
       ];
@@ -68,13 +76,12 @@ const Services = () => {
 
 
   return ( 
-  <div className='max-w-[1400px] mx-auto'>
-    <div className="flex justify-center space-x-4 flex-wrap py-8 ">
+  <div className='sm:max-w-[1400px] mx-auto'>
+    <div className="grid grid-cols-3 gap-4 sm:grid-cols-3 ">
     {servicesData.map((card, index) => (
       <ServicesCard 
         key={index}
         title={card.title}
-        description={card.description}
         imageSrc={card.imageSrc}
         link={card.link || '#'}
       />
