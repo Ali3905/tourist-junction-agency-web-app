@@ -1,9 +1,10 @@
 import React from 'react'
+import SearchEmptyVehicle from './SearchEmptyVehicle'
 
 const page = () => {
   return (
     <div>
-        search empty vehicles
+        <SearchEmptyVehicle/>
     </div>
   )
 }

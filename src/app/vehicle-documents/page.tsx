@@ -1,8 +1,12 @@
 import React from 'react'
+import DocumentList from './DocumentList'
+import { DocumentData } from '../data'
 
 const page = () => {
   return (
-    <div>vehicles documents</div>
+    <div>
+       <DocumentList documents={DocumentData} />
+    </div>
   )
 }
 

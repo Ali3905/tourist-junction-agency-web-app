@@ -1,9 +1,10 @@
 import React from 'react'
+import PackageList from './PackageList'
 
 const page = () => {
   return (
     <div>
-        package vehicle booking
+      <PackageList/>
     </div>
   )
 }

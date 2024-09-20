@@ -1,9 +1,12 @@
 import React from 'react'
+import EmptyVehiclesList from './EmptyVehiclesList'
+import Navbar from '@/components/Navbar'
 
 const page = () => {
   return (
     <div>
-          create empty vehicles
+         <Navbar/>
+         <EmptyVehiclesList/>
     </div>
   )
 }

@@ -1,9 +1,11 @@
+"use client"
 import React from 'react'
+import DailyRouteList from './DailyRouteList'
 
 const page = () => {
   return (
     <div>
-        daily route
+        <DailyRouteList/>
     </div>
   )
 }

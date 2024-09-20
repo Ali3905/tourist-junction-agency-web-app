@@ -1,9 +1,10 @@
 import React from 'react'
+import CleanerList from './CleanerList'
 
 const page = () => {
   return (
     <div>
-         cleaner list
+        <CleanerList/>
     </div>
   )
 }

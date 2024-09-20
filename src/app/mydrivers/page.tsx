@@ -1,9 +1,10 @@
 import React from 'react'
+import DriverList from './DriverList'
 
 const page = () => {
   return (
     <div>
-        my drivers
+       <DriverList/>
     </div>
   )
 }
