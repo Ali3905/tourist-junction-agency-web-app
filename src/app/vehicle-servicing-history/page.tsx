@@ -1,9 +1,10 @@
 import React from 'react'
+import ServiceList from './ServiceList'
 
 const page = () => {
   return (
     <div>
-        vehicle servicing history
+        <ServiceList/>
     </div>
   )
 }
