@@ -62,6 +62,30 @@ export const Form = ({ formFields, handler }: FormProps) => {
                             ) : null
                             }
                         </label>
+                    } else if (field.type === "date") {
+                        return <label className='flex flex-col gap-2'>
+                            {field.label}
+                            <span className='border-2 px-4 py-2 focus:outline flex'>
+                                <input {...register(field.name, field.validation)} type={"date"} id={field.id} className='outline-none flex-grow' />
+                            </span>
+                            {errors[field.name] && errors[field.name]?.message &&
+                                typeof errors[field.name]?.message === 'string' ? (
+                                <span className='text-red-500'>{errors[field.name]?.message?.toString()}</span>
+                            ) : null
+                            }
+                        </label>
+                    } else if (field.type === "time") {
+                        return <label className='flex flex-col gap-2'>
+                            {field.label}
+                            <span className='border-2 px-4 py-2 focus:outline flex'>
+                                <input {...register(field.name, field.validation)} type={"time"} id={field.id} className='outline-none flex-grow' />
+                            </span>
+                            {errors[field.name] && errors[field.name]?.message &&
+                                typeof errors[field.name]?.message === 'string' ? (
+                                <span className='text-red-500'>{errors[field.name]?.message?.toString()}</span>
+                            ) : null
+                            }
+                        </label>
                     } else if (field.type === "file") {
                         return <FileInput field={field} errors={errors} register={register} />
                     } else if (field.type === "select") {
