@@ -2,23 +2,10 @@
 
 import React, { useState } from 'react';
 import Modal from './Modal';
-import Image from 'next/image';
 import AddButton from './AddButton';
 
-interface DriverData {
-  name: string;
-  password: string;
-  vehicleType: string;
-  mobileNumber: string;
-  city: string;
-  state: string;
-  aadharCard: string;
-  license: string;
-  photo: string;
-}
-
 interface DriverCardProps {
-  data: DriverData;
+  data: Driver;
 }
 
 const DriverCard: React.FC<DriverCardProps> = ({ data }) => {
@@ -66,12 +53,12 @@ const DriverCard: React.FC<DriverCardProps> = ({ data }) => {
        </span>
         
       </div>
-      <img className="h-40 w-40 rounded-full object-cover" width={40} height={40} src={photo} alt="Driver" />
+      <img className="h-40 w-40 rounded-full object-cover" width={40} height={40} src={license} alt="Driver" />
       </div>
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <h2 className="text-lg font-semibold mb-4">Addhar Photo</h2>
-        <img className="w-full h-auto object-cover" src={photo} alt="Driver" />
+        <img className="w-full h-auto object-cover" src={aadharCard} alt="Driver" />
       </Modal>
       
     </div>

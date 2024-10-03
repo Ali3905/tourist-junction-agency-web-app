@@ -7,20 +7,10 @@ import UpdateButton from '@/components/UpdateButton';
 import DeleteButton from '@/components/DeleteButton';
 import AddButton from '@/components/AddButton';
 
-interface CleanerData {
-  name: string;
-  mobileNumber: string;
-  password: string;
-  city: string;
-  state: string;
-  aadharCard: string;
-  photo: string;
-}
-
 interface CleanerCardProps {
-  data: CleanerData;
-  onUpdate: () => void;
-  onDelete: () => void;
+  data: Cleaner;
+  onUpdate?: (id: string) => void;
+  onDelete?: (id: string) => void;
 }
 
 const CleanerCard: React.FC<CleanerCardProps> = ({ data, onUpdate, onDelete }) => {

@@ -1,46 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DailyRouteCard from './DailyRouteCard'; // Adjust the import path as necessary
-import { DailyRouteData } from '../data';
-
-// Define the type for the route object
-interface Route {
-  vehicle: string;
-  agencyName: string;
-  departurePlace: string;
-  destinationPlace: string;
-  primaryDriver: string;
-  secondaryDriver?: string;
-  cleaner?: string;
-  departureTime: string;
-  instructions?: string;
-  status: 'Active' | 'Inactive';
-  amenities?: string[];
-  arrivalTime?: string;
-  pickupPoint: string;
-  dropoffPoint: string;
-  ticketFare: number;
-  officeAddress: string;
-  phonepeNumber: string;
-  mobileNumbers?: string[];
-  doesProvideCorierService: boolean;
-  doesBookTrainTickets: boolean;
-  doesCarryTwoWheelers: boolean;
-  QR?: string;
-  seatingArrangement?: string;
-  discount?: number;
-}
+import { deleteData } from '@/utils/api';
 
 // Define the props for the DailyRouteList component
 interface DailyRouteListProps {
-  routes: Route[];
+  data: DailyRoute[];
 }
 
-const DailyRouteList: React.FC<DailyRouteListProps> = ({ routes }) => {
+const DailyRouteList: React.FC<DailyRouteListProps> = ({ data }) => {
+  const [deletedId, setDeletedId] = useState('')
   return (
-    <div className="space-y-4">
-      {DailyRouteData.map((route, index) => (
-        <DailyRouteCard key={index} route={route} />
-      ))}
+    <div className="flex gap-4">
+      {data.map((route, index) => {
+        if(route._id === deletedId) return;
+        return <DailyRouteCard key={index} data={route} onDelete={async () => {
+          await deleteData({
+            params: { routeId: route._id },
+            url: "/busRoute"
+          });
+          setDeletedId(route._id)
+        }} />
+      })}
     </div>
   );
 };

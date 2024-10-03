@@ -1,11 +1,17 @@
 "use client"
 import { Form } from '@/components/Form'
+import { getVehicleNumberDropdownOptions } from '@/utils/getDropdownOptions'
 import axios from 'axios'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const page = () => {
+    const [vehicleOptions, setVehicleOptions] = useState([])
+
+    const getVehicleOptions = async () => {
+        setVehicleOptions(await getVehicleNumberDropdownOptions())
+    }
     const formFields = [
-        { name: "vehicleNo", id: "vehicleNo", type: "text", label: "Vehicle Number", validation: { required: "Vehicle Number is required" } },
+        { name: "vehicleNo", id: "vehicleNo", type: "select",options: vehicleOptions, label: "Vehicle Number", validation: { required: "Vehicle Number is required" } },
         {
             name: "mobileNumber", id: "mobileNumber", type: "number", label: "Mobile Number", validation: {
                 required: { value: true, message: "Your mobile number is required" },
@@ -42,7 +48,6 @@ const page = () => {
                     console.log({ date: value });
                     formData.append(key, new Date(value).toISOString())
                 } else if (key === "departureTime") {
-                    console.log({ time: value });
                     const date = new Date(data.departureDate).toISOString().split('T')[0]
                     const dateTimeString = `${date}T${value}:00`;
                     formData.append(key, new Date(dateTimeString).toISOString())
@@ -70,6 +75,10 @@ const page = () => {
             alert(error?.response?.data?.message || error.message)
         }
     }
+
+    useEffect(()=>{
+        getVehicleOptions()
+    }, [])
 
     return (
         <div className='max-w-[1400px] mx-auto'>

@@ -1,73 +1,88 @@
 "use client"
-import React from "react";
-import { useForm } from "react-hook-form";
+import { Form } from '@/components/Form'
+import { getVehicleIdDropdownOptions } from '@/utils/getDropdownOptions'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 
-const vehicleOptions = [
-  { label: "Select Vehicle Number", value: "" },
-  { label: "MH 12 AB 1234", value: "MH12AB1234" },
-  { label: "MH 25 XY 5678", value: "MH25XY5678" },
-  { label: "DL 8C Z 9123", value: "DL8CZ9123" }
-];
+const page = () => {
+    const [vehicleOptions, setVehicleOptions] = useState([])
 
-const formFields = [
-  { name: "RC", id: "RC", type: "file", label: "RC", required: true },
-  { name: "Insurance", id: "Insurance", type: "file", label: "Insurance", required: true },
-  { name: "Permit", id: "Permit", type: "file", label: "Permit", required: true },
-  { name: "Fitness", id: "Fitness", type: "file", label: "Fitness", required: true },
-  { name: "Tax", id: "Tax", type: "file", label: "Tax", required: true },
-  { name: "Puc", id: "Puc", type: "file", label: "PUC", required: true }
-];
+    const getVehicleOptions = async () => {
+        setVehicleOptions(await getVehicleIdDropdownOptions())
+    }
+    const formFields = [
+        { name: "vehicleId", id: "vehicleId", type: "select", options: vehicleOptions, label: "Vehicle", validation: { required: "Vehicle Id is required" } },
+        { name: "RC", id: "RC", type: "file", label: "RC", validation: { required: { value: true, message: "RC Photo is required" } } },
+        { name: "insurance", id: "insurance", type: "file", label: "Insurance", validation: { required: { value: true, message: "Insurance Photo is required" } } },
+        { name: "permit", id: "permit", type: "file", label: "Permit", validation: { required: { value: true, message: "Permit Photo is required" } } },
+        { name: "fitness", id: "fitness", type: "file", label: "Fitness", validation: { required: { value: true, message: "Fitness Photo is required" } } },
+        { name: "tax", id: "tax", type: "file", label: "Tax", validation: { required: { value: true, message: "Tax Photo is required" } } },
+        { name: "PUC", id: "PUC", type: "file", label: "PUC", validation: { required: { value: true, message: "PUC Photo is required" } } },
+    ]
 
-const DocumentsForm = () => {
-  const { handleSubmit, register, formState: { errors } } = useForm();
+    const handleSubmitTampoForm = async (data: any, reset: () => void) => {
+        // Create a new FormData instance
+        const formData = new FormData();
 
-  const onSubmit = (data: any) => {
-    console.log("Form Data: ", data);
-  };
+        // Loop through the form data and append each field to the FormData object
+        for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+                const value = data[key];
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-2 sm:px-[100px] px-[10px]">
-      {/* Dropdown for Vehicle Number */}
-      <h1 className="text-center font-bold text-[40px]">Create Vehicle Documents</h1>
-      <div>
-        <label className="block font-bold mb-1" htmlFor="vehicleNumber">
-          Vehicle Number
-        </label>
-        <select
-          id="vehicleNumber"
-          {...register("vehicleNumber", { required: "Vehicle Number is required" })}
-          className="p-2 border border-gray-300 w-full"
-        >
-          {vehicleOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-        {errors.vehicleNumber && <span className="text-red-500">Vehicle Number is required</span>}
-      </div>
+                if (value instanceof FileList) {
+                    for (let i = 0; i < value.length; i++) {
+                        formData.append(key, value[i]);
+                    }
+                } else if (Array.isArray(value)) {
+                    value.forEach((val) => {
+                        formData.append(key, val)
+                    })
+                } else if (key === "date") {
+                    console.log({ date: value });
+                    formData.append(key, new Date(value).toISOString())
+                } else if (key === "departureTime") {
+                    console.log({ time: value });
+                    const date = new Date(data.departureDate).toISOString().split('T')[0]
+                    const dateTimeString = `${date}T${value}:00`;
+                    formData.append(key, new Date(dateTimeString).toISOString())
+                } else {
+                    formData.append(key, value);
+                }
+            }
+        }
 
-      {/* File Inputs for Documents */}
-      {formFields.map((field) => (
-        <div key={field.id}>
-          <label className="block font-bold mb-1" htmlFor={field.id}>
-            {field.label}
-          </label>
-          <input
-            id={field.id}
-            type="file"
-            {...register(field.name, { required: `${field.label} is required` })}
-            className="p-2 border border-gray-300 w-full"
-          />
-          {errors[field.name] && <span className="text-red-500">{field.label} is required</span>}
+        try {
+
+            const res = await axios({
+                method: "patch",
+                baseURL: `${process.env.NEXT_PUBLIC_SERVER}/api`,
+                url: "/vehicle/addDocuments",
+                params: {
+                  vehicleId: data.vehicleId
+                },
+                data: formData,
+                headers: {
+                    authtoken: process.env.NEXT_PUBLIC_AUTH_TOKEN
+                }
+            })
+            // return res.data.success
+            alert("Vehicle documents added")
+            reset()
+        } catch (error: any) {
+            alert(error?.response?.data?.message || error.message)
+        }
+    }
+
+    useEffect(()=>{
+        getVehicleOptions()
+    }, [])
+
+    return (
+        <div className='max-w-[1400px] mx-auto'>
+            <h2 className='font-bold text-[26px] text-center'>Add Vehicle Documents</h2>
+            <Form formFields={formFields} handler={handleSubmitTampoForm} />
         </div>
-      ))}
+    )
+}
 
-      <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded">
-        Submit
-      </button>
-    </form>
-  );
-};
-
-export default DocumentsForm;
+export default page

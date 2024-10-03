@@ -1,13 +1,19 @@
 "use client"
 import { Form } from '@/components/Form'
+import { getVehicleNumberDropdownOptions } from '@/utils/getDropdownOptions'
 import axios from 'axios'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const page = () => {
+    const [vehicleOptions, setVehicleOptions] = useState([])
+
+    const getVehicleOptions = async () => {
+        setVehicleOptions(await getVehicleNumberDropdownOptions())
+    }
     const formFields = [
         { name: "garageName", id: "garageName", type: "text", label: "Garage Name", validation: { required: "Garage Name is required" } },
         { name: "garageNumber", id: "garageNumber", type: "text", label: "Garage Number", validation: { required: "Garage Number is required" } },
-        { name: "vehicleNumber", id: "vehicleNumber", type: "text", label: "Vehicle Number", validation: { required: "Vehicle Number is required" } },
+        { name: "vehicleNumber", id: "vehicleNumber", type: "select", options: vehicleOptions, label: "Vehicle Number", validation: { required: "Vehicle Number is required" } },
         { name: "workDescription", id: "workDescription", type: "text", label: "Work Description", validation: { required: "Work description is required" } },
         { name: "date", id: "date", type: "date", label: "Date", validation: { required: "Date is required" } },
         { name: "bill", id: "bill", type: "file", label: "Bill", isMultiple: true, validation: { required: { value: true, message: "Bill Photos are required" } } },
@@ -62,6 +68,10 @@ const page = () => {
             alert(error?.response?.data?.message || error.message)
         }
     }
+
+    useEffect(()=>{
+        getVehicleOptions()
+    }, [])
 
     return (
         <div className='max-w-[1400px] mx-auto'>

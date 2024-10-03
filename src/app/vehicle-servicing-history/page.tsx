@@ -1,10 +1,14 @@
-import React from 'react'
-import ServiceList from './ServiceList'
+import React, { Suspense } from 'react'
+import ServiceList from './ServiceContainer'
+import ServiceDataProvider from './ServiceDataProvider'
+import Loader from '@/components/Loader'
 
 const page = () => {
   return (
     <div>
-        <ServiceList/>
+      <Suspense fallback={<Loader />}>
+        <ServiceDataProvider />
+      </Suspense>
     </div>
   )
 }

@@ -3,20 +3,20 @@ import DeleteButton from '../../components/DeleteButton';
 import UpdateButton from '../../components/UpdateButton';
 import Modal from '@/components/Modal';
 
-const ServiceHistoryCard = ({ data, onDelete, onUpdate, photo }) => {
+type ServiceHistoryCardProps = {
+  data: VehicleService,
+  onDelete?: (id: string) => void,
+  onUpdate?: (id: string) => void,
+  photo?: string,
+}
+
+const ServiceHistoryCard = ({ data, onDelete, onUpdate, photo }: ServiceHistoryCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const { 
-    vehicleNumber,
-    garageName,
-    garageNumber,
-    date,
-    workDescription,
-    bill,
-  } = data;
+  const { vehicle, garageName, garageNumber, date, workDescription, bill, } = data;
 
   return (
     <div className="relative max-w-sm rounded-lg overflow-hidden shadow-md hover:shadow-lg mt-6 transition-shadow duration-300">
@@ -27,12 +27,12 @@ const ServiceHistoryCard = ({ data, onDelete, onUpdate, photo }) => {
       </div>
 
       <div className="p-4 mt-8">
-        {vehicleNumber && <h2 className="font-semibold text-lg">Number: {vehicleNumber}</h2>}
+        {vehicle && <h2 className="font-semibold text-lg">Number: {vehicle.number}</h2>}
         {garageName && <p className="text-gray-600">Garage Name: {garageName}</p>}
         {garageNumber && <p className="text-gray-600">Garage No: {garageNumber}</p>}
-        {date && <p className="text-gray-600">Date: {date}</p>}
+        {date && <p className="text-gray-600">Date: {date.toString()}</p>}
         {workDescription && <p className="text-gray-600">Work Description: {workDescription}</p>}
-     
+
         <button
           className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
           onClick={openModal}

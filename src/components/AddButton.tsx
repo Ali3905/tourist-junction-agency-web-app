@@ -1,6 +1,11 @@
 import React from 'react'
 
-const AddButton = ({ onClick, buttonText }) => {
+type AddButtonProps = {
+  onClick: () => void;
+  buttonText: string;
+}
+
+const AddButton = ({ onClick, buttonText }: AddButtonProps) => {
   return (
     <button 
       onClick={onClick} 

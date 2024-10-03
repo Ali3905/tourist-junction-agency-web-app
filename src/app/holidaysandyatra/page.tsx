@@ -1,12 +1,15 @@
 import Navbar from '@/components/Navbar'
-import React from 'react'
-import HolidayYatraDetail from './HolidayYatraDetail'
+import React, { Suspense } from 'react'
+import HolidayYatraDetailDataProvider from './HolidayYatraDataProvider'
+import Loader from '@/components/Loader'
 
 const page = () => {
   return (
     <div>
-      <Navbar/>
-      <HolidayYatraDetail/>
+      <Navbar />
+      <Suspense fallback={<Loader />}>
+        <HolidayYatraDetailDataProvider />
+      </Suspense>
     </div>
   )
 }

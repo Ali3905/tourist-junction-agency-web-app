@@ -1,33 +1,26 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import VehicleCard from '../VehicleCard';
 import { TampoData } from '../../data'; // Import the dummy data
 import SearchBar from '@/components/SearchBar';
 import AddButton from '@/components/AddButton';
+import { deleteData } from '@/utils/api';
 
-const TampoList = () => {
-
-  const handleSearch = (hospitalName, location) => {
-    console.log(`Searching for: ${hospitalName} in ${location}`);
-    // Perform search logic here
-  };
-
+const TampoList = ({ data }: { data: Vehicle[] }) => {
+  const [deletedId, setDeletedId] = useState('')
   return (
-    <div className='max-w-[1400px] mx-auto'>
-      {/* Centered container for the search bar */}
-      <div className='flex justify-center py-8'>
-        <SearchBar 
-          onSearch={handleSearch}
-          placeholderText="Enter Vehicle No"
-        />
-      </div>
-         <AddButton buttonText={'Add Tampo'}/>
-      {/* Container for the bus cards */}
-      <div className="flex justify-center space-x-4 flex-wrap py-8">
-        {TampoData.map((item, index) => (
-          <VehicleCard key={index} data={item} />
-        ))}
-      </div>
+
+    <div className="flex justify-center space-x-4 flex-wrap py-8">
+      {data.map((item, index) => {
+        if (item._id === deletedId) return;
+        return <VehicleCard key={index} data={item} onDelete={async () => {
+          await deleteData({
+            params: { vehicleId: item._id },
+            url: "/vehicle"
+          });
+          setDeletedId(item._id)
+        }} />
+      })}
     </div>
   );
 };

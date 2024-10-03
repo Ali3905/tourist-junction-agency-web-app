@@ -2,11 +2,17 @@
 import React, { useState } from 'react';
 import { Search } from 'lucide-react';
 
-const SearchBar = ({ onSearch, placeholderText }) => {
-  const [hospitalName, setHospitalName] = useState('');
+type SearchBarProps = {
+  onSearch: (query: string) => void,
+  placeholderText: string,
+}
 
-  const handleSearch = () => {
-    onSearch(hospitalName);
+const SearchBar = ({ onSearch, placeholderText }: SearchBarProps) => {
+  const [query, setQuery] = useState<string>('');
+
+  const handleSearch = (query: string) => {
+    onSearch(query);
+    setQuery(query)
   };
 
   return (
@@ -17,15 +23,14 @@ const SearchBar = ({ onSearch, placeholderText }) => {
       {/* Hospital Name Input */}
       <input
         type="text"
-        value={hospitalName}
-        onChange={(e) => setHospitalName(e.target.value)}
+        value={query}
+        onChange={(e) => handleSearch(e.target.value)}
         placeholder={placeholderText}  // Using the placeholderText prop here
         className="flex-1 px-4 text-gray-600 focus:outline-none placeholder-gray-400"
       />
 
       {/* Search Button */}
       <button
-        onClick={handleSearch}
         className="ml-4 bg-gradient-to-r from-purple-500 to-blue-500 text-white px-6 py-2 rounded-full hover:shadow-lg transition-shadow duration-300"
       >
         Search

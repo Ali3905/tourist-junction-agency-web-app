@@ -5,27 +5,18 @@ import Modal from '../../components/Modal'; // Adjust the import path as necessa
 import UpdateButton from '@/components/UpdateButton';
 import DeleteButton from '@/components/DeleteButton';
 
-interface EmptyVehicleData {
-  vehicle: string;
-  moreInformation: string;
-  departurePlace: string;
-  destinationPlace: string;
-  departureTime: string;
-  departureDate: string;
-  mobileNumber: string;
-  agency: string;
-  photos: string[]; // Assuming multiple photos
-}
 
 interface EmptyVehicleCardProps {
-  data: EmptyVehicleData;
+  data: EmptyVehicle;
+  onUpdate?: (id: string) => void;
+  onDelete?: (id: string) => void;
 }
 
 const EmptyVehicleCard: React.FC<EmptyVehicleCardProps> = ({ data, onUpdate, onDelete }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
 
-  const { vehicle, moreInformation, departurePlace, destinationPlace, departureTime, departureDate, mobileNumber, agency, photos,imageSrc } = data;
+  const { vehicle, moreInformation, departurePlace, destinationPlace, departureTime, departureDate, mobileNumber, photos, agency } = data;
 
   const openModal = (index: number) => {
     setSelectedPhotoIndex(index);
@@ -36,18 +27,18 @@ const EmptyVehicleCard: React.FC<EmptyVehicleCardProps> = ({ data, onUpdate, onD
 
   return (
     <div className="relative max-w-sm rounded-lg overflow-hidden shadow-md hover:shadow-lg mt-6 transition-shadow duration-300">
-        <div className="absolute top-2 right-2 space-x-2">
+      <div className="absolute top-2 right-2 space-x-2">
         <UpdateButton onUpdate={onUpdate} />
         <DeleteButton onDelete={onDelete} />
       </div>
       <div className="p-4">
-      <img className="w-full h-48 object-cover" src={imageSrc} alt={vehicle} />
-        <h2 className="font-semibold text-lg">Vehicle No: {vehicle}</h2>
+        <img className="w-full h-48 object-cover" src={photos[0]} alt={vehicle.number} />
+        <h2 className="font-semibold text-lg">Vehicle No: {vehicle.number}</h2>
         <p className="text-gray-600">More Information: {moreInformation}</p>
         <p className="text-gray-600">Departure Place: {departurePlace}</p>
         <p className="text-gray-600">Destination Place: {destinationPlace}</p>
-        <p className="text-gray-600">Departure Time: {departureTime}</p>
-        <p className="text-gray-600">Departure Date: {departureDate}</p>
+        <p className="text-gray-600">Departure Time: {departureTime.toString()}</p>
+        <p className="text-gray-600">Departure Date: {departureDate.toString()}</p>
         <p className="text-gray-600">Mobile No: {mobileNumber}</p>
         {/* <p className="text-gray-600">Agency: {agency}</p> */}
 

@@ -1,12 +1,16 @@
 import Navbar from '@/components/Navbar'
-import React from 'react'
+import React, { Suspense } from 'react'
 import CarList from './CarList'
+import Loader from '@/components/Loader'
+import CarDataProvider from './CarDataProvider'
 
 const page = () => {
   return (
     <div>
         <Navbar/>
-        <CarList/>
+        <Suspense fallback={<Loader />}>
+          <CarDataProvider />
+        </Suspense>
     </div>
   )
 }

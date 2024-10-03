@@ -1,12 +1,18 @@
 "use client"
 import { Form } from '@/components/Form'
+import { getVehicleIdDropdownOptions } from '@/utils/getDropdownOptions'
 import axios from 'axios'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const page = () => {
+    const [vehicleOptions, setVehicleOptions] = useState([])
+
+    const getVehicleOptions = async () => {
+        setVehicleOptions(await getVehicleIdDropdownOptions())
+    }
     const formFields = [
-        { name: "vehicleId", id: "vehicleId", type: "text", label: "Vehicle Number", validation: { required: "Vehicle Number is required" } },
-        { name: "otherVehicleId", id: "otherVehicleId", type: "text", label: "Other Vehicle Number", validation: { required: "Departure place is required" } },
+        { name: "vehicleId", id: "vehicleId", type: "select", label: "Vehicle Number", options: vehicleOptions, validation: { required: "Vehicle Number is required" } },
+        { name: "otherVehicleId", id: "otherVehicleId", type: "select", label: "Other Vehicle Number",options: vehicleOptions, validation: { required: "Departure place is required" } },
         { name: "destinationPlace", id: "destinationPlace", type: "text", label: "Destination Place", validation: { required: "Destination place is required" } },
         { name: "customerName", id: "customerName", type: "text", label: "Customer Name", validation: { required: "Customer Name is required" } },
         {
@@ -35,50 +41,36 @@ const page = () => {
     ]
 
     const handleSubmitTampoForm = async (data: any, reset: () => void) => {
-        // Create a new FormData instance
-        const formData = new FormData();
 
-        // Loop through the form data and append each field to the FormData object
-        for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-                const value = data[key];
+        const departureDate = new Date(data.departureDate).toISOString().split('T')[0]
+        const departureTimeString = `${departureDate}T${data.departureTime}:00`;
 
-                if (value instanceof FileList) {
-                    for (let i = 0; i < value.length; i++) {
-                        formData.append(key, value[i]);
-                    }
-                } else if (Array.isArray(value)) {
-                    value.forEach((val) => {
-                        formData.append(key, val)
-                    })
-                }  else if (key === "departureTime" || key === "arrivalTime") {
-                    console.log({ time: value });
-                    const date = new Date().toISOString().split('T')[0]
-                    const dateTimeString = `${date}T${value}:00`;
-                    formData.append(key, new Date(dateTimeString).toISOString())
-                } else {
-                    formData.append(key, value);
-                }
-            }
-        }
+        const returnDate = new Date(data.returnDate).toISOString().split('T')[0]
+        const returnTimeString = `${departureDate}T${data.returnTime}:00`;
 
+        data.returnTime = returnTimeString
+        data.departureTime = departureTimeString
         try {
             const res = await axios({
                 method: "post",
                 baseURL: `${process.env.NEXT_PUBLIC_SERVER}/api`,
                 url: "/packageBooking",
-                data: formData,
+                data,
                 headers: {
                     authtoken: process.env.NEXT_PUBLIC_AUTH_TOKEN
                 }
             })
             // return res.data.success
-            alert("Daily Route Created")
+            alert("Package Booking Created")
             reset()
         } catch (error: any) {
             alert(error?.response?.data?.message || error.message)
         }
     }
+
+    useEffect(()=>{
+        getVehicleOptions()
+    },[])
 
     return (
         <div className='max-w-[1400px] mx-auto'>

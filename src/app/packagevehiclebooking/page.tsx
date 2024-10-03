@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import PackageList from './PackageList'
+import Navbar from '@/components/Navbar'
+import Loader from '@/components/Loader'
+import PackageBookingDataProvider from './PackageBookingDataProvider'
 
 const page = () => {
   return (
     <div>
-      <PackageList/>
+      <Navbar />
+      <Suspense fallback={<Loader />}>
+        <PackageBookingDataProvider />
+      </Suspense>
     </div>
   )
 }

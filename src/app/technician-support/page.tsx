@@ -1,13 +1,16 @@
 import Navbar from '@/components/Navbar'
-import React from 'react'
+import React, { Suspense } from 'react'
 import TechnicianCard from './TechnicianCard'
 import TechnicianList from './TechnicianList'
+import TechnicianDataProvider from './TechnicianDataProvider'
 
 const page = () => {
   return (
     <div>
         <Navbar/>
-        <TechnicianList/>
+        <Suspense>
+          <TechnicianDataProvider />
+        </Suspense>
     </div>
   )
 }

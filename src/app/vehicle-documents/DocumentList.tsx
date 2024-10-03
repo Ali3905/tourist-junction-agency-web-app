@@ -1,14 +1,16 @@
+"use client"
+
 import React from 'react';
 import DocumentCard from './DocumetCard';
 
-const DocumentList = ({ documents }) => {
+const DocumentList = ({ data }) => {
   return (
     <div className="flex justify-center space-x-4 flex-wrap py-8">
-      {documents.map((doc, index) => (
-        <DocumentCard
-       
-        />
-      ))}
+      {
+        data.map((veh)=>{
+          return <DocumentCard data={veh} />
+        })
+      }
     </div>
   );
 };

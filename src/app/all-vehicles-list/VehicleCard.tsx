@@ -2,7 +2,13 @@ import React from 'react';
 import DeleteButton from '../../components/DeleteButton';
 import UpdateButton from '../../components/UpdateButton';
 
-const VehicleCard = ({ data, onDelete, onUpdate }) => {
+type VehicleCardProps = {
+  data: Vehicle,
+  onDelete?: (id: string) => void,
+  onUpdate?: (id: string) => void,
+}
+
+const VehicleCard = ({ data, onDelete, onUpdate }: VehicleCardProps) => {
   const { 
     number, 
     seatingCapacity, 
@@ -15,12 +21,12 @@ const VehicleCard = ({ data, onDelete, onUpdate }) => {
     noOfTyres,
     isForRent, 
     amenities = [], // Default to empty array if not provided
-    imageSrc 
+     photos
   } = data;
 
   return (
     <div className="relative max-w-sm rounded-lg overflow-hidden shadow-md hover:shadow-lg mt-6 transition-shadow duration-300">
-      {imageSrc && <img className="w-full h-48 object-cover" src={imageSrc} alt={number} />}
+      {<img className="w-full h-48 object-cover" src={photos[0]} alt={number} />}
 
       {/* Buttons positioned at the top-right corner */}
       <div className="absolute top-2 right-2 space-x-2">

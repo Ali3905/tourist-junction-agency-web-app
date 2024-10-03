@@ -1,11 +1,16 @@
-"use client"
-import React from 'react'
-import DailyRouteList from './DailyRouteList'
+import React, { Suspense } from 'react'
+import Navbar from '@/components/Navbar'
+import DailyRouteDataProvider from './DailyRouteDataProvider'
+import Loader from '@/components/Loader'
 
 const page = () => {
   return (
     <div>
-        <DailyRouteList/>
+      <Navbar />
+
+      <Suspense fallback={<Loader />}>
+        <DailyRouteDataProvider />
+      </Suspense>
     </div>
   )
 }

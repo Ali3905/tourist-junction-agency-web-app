@@ -1,11 +1,17 @@
 "use client"
 import { Form } from '@/components/Form'
+import { getVehicleNumberDropdownOptions } from '@/utils/getDropdownOptions'
 import axios from 'axios'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const page = () => {
+    const [vehicleOptions, setVehicleOptions] = useState([])
+
+    const getVehicleOptions = async () => {
+        setVehicleOptions(await getVehicleNumberDropdownOptions())
+    }
     const formFields = [
-        { name: "vehicleNo", id: "vehicleNo", type: "text", label: "Vehicle Number", validation: { required: "Vehicle Number is required" } },
+        { name: "vehicleNo", id: "vehicleNo", type: "select", options: vehicleOptions, label: "Vehicle Number", validation: { required: "Vehicle Number is required" } },
         { name: "depraturePlace", id: "depraturePlace", type: "text", label: "Departure Place", validation: { required: "Departure place is required" } },
         { name: "destinationPlace", id: "destinationPlace", type: "text", label: "Destination Place", validation: { required: "Destination place is required" } },
         { name: "departureTime", id: "departureTime", type: "time", label: "Departure Time", validation: { required: "Departure time is required" } },
@@ -32,10 +38,10 @@ const page = () => {
         { name: "phonepeNumber", id: "phonepeNumber", type: "text", label: "Phone pe Number", validation: { required: "Phone pe number is required" } },
         { name: "phonepeName", id: "phonepeName", type: "text", label: "Phone pe name", validation: { required: "Phone pe name is required" } },
 
-        { name: "mobileNumber", id: "mobileNumber", type: "text", label: "Mobile Number 1"},
-        { name: "mobileNumber", id: "mobileNumber", type: "text", label: "Mobile Number 2"},
-        { name: "mobileNumber", id: "mobileNumber", type: "text", label: "Mobile Number 3"},
-        { name: "mobileNumber", id: "mobileNumber", type: "text", label: "Mobile Number 4"},
+        { name: "mobileNumber", id: "mobileNumber", type: "text", label: "Mobile Number 1" },
+        { name: "mobileNumber", id: "mobileNumber", type: "text", label: "Mobile Number 2" },
+        { name: "mobileNumber", id: "mobileNumber", type: "text", label: "Mobile Number 3" },
+        { name: "mobileNumber", id: "mobileNumber", type: "text", label: "Mobile Number 4" },
 
         // { name: "date", id: "date", type: "date", label: "Date", validation: { required: "Date is required" } },
         { name: "QR", id: "QR", type: "file", label: "QR", validation: { required: { value: true, message: "QR Photo is required" } } },
@@ -59,7 +65,7 @@ const page = () => {
                     value.forEach((val) => {
                         formData.append(key, val)
                     })
-                }  else if (key === "departureTime" || key === "arrivalTime") {
+                } else if (key === "departureTime" || key === "arrivalTime") {
                     console.log({ time: value });
                     const date = new Date().toISOString().split('T')[0]
                     const dateTimeString = `${date}T${value}:00`;
@@ -88,6 +94,10 @@ const page = () => {
             alert(error?.response?.data?.message || error.message)
         }
     }
+
+    useEffect(() => {
+        getVehicleOptions()
+    }, [])
 
     return (
         <div className='max-w-[1400px] mx-auto'>

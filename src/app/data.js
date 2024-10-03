@@ -130,13 +130,43 @@ export const ServiceData = [
 //Documnt Data
 
 export const DocumentData = [
-    { name: "Vehicle Number" },
-    { name: "RC", file: "/dummy-car.jpeg" },
-    { name: "Insurance", file: "/dummy-car.jpeg" },
-    { name: "Permit", file: "/path/to/permit.jpg" },
-    { name: "Fitness", file: "/path/to/fitness.jpg" },
-    { name: "Tax", file: "/path/to/tax.jpg" },
-    { name: "PUC", file: "/path/to/puc.jpg" }
+    // { name: "Vehicle Number" },
+    // { name: "RC", file: "/dummy-car.jpeg" },
+    // { name: "Insurance", file: "/dummy-car.jpeg" },
+    // { name: "Permit", file: "/path/to/permit.jpg" },
+    // { name: "Fitness", file: "/path/to/fitness.jpg" },
+    // { name: "Tax", file: "/path/to/tax.jpg" },
+    // { name: "PUC", file: "/path/to/puc.jpg" }
+    {
+      number: "MH 2353",
+      seatingCapacity: 23,
+      RC: "/dummy-car.jpeg",
+      insurance: "/dummy-car.jpeg",
+      permit: "/dummy-car.jpeg",
+      fitness: "/dummy-car.jpeg",
+      tax: "/dummy-car.jpeg",
+      PUC: "/dummy-car.jpeg",
+    },
+    {
+      number: "RS 4623",
+      seatingCapacity: 23,
+      RC: "/dummy-car.jpeg",
+      insurance: "/dummy-car.jpeg",
+      permit: "/dummy-car.jpeg",
+      fitness: "/dummy-car.jpeg",
+      tax: "/dummy-car.jpeg",
+      PUC: "/dummy-car.jpeg",
+    },
+    {
+      number: "JD 9853",
+      seatingCapacity: 23,
+      RC: "/dummy-car.jpeg",
+      insurance: "/dummy-car.jpeg",
+      permit: "/dummy-car.jpeg",
+      fitness: "/dummy-car.jpeg",
+      tax: "/dummy-car.jpeg",
+      PUC: "/dummy-car.jpeg",
+    }
   ];
 
 export const EmployeeData = [

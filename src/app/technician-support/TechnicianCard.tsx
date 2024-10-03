@@ -3,24 +3,14 @@
 import React, { useState } from 'react';
 import Modal from '../../components/Modal'; // Adjust the import path as necessary
 
-interface TechnicianData {
-  name: string;
-  state: string;
-  city: string;
-  mobileNumber: string;
-  alternateNumber: string;
-  vehicleType: string;
-  photo: string; // Assuming you might want to display a photo
-}
-
 interface TechnicianCardProps {
-  data: TechnicianData;
+  data: Technician;
 }
 
 const TechnicianCard: React.FC<TechnicianCardProps> = ({ data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { name, state, city, mobileNumber, alternateNumber, vehicleType, photo } = data;
+  const { name, state, city, mobileNumber, alternateNumber, vehicleType } = data;
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -43,11 +33,11 @@ const TechnicianCard: React.FC<TechnicianCardProps> = ({ data }) => {
           View Photo
         </button> */}
       </div>
-
+{/* 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <h2 className="text-lg font-semibold mb-4">Technician Photo</h2>
         <img className="w-full h-auto object-cover" src={photo} alt="Technician" />
-      </Modal>
+      </Modal> */}
     </div>
   );
 };

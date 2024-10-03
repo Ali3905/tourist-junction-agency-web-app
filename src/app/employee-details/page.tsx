@@ -1,12 +1,15 @@
-import React from 'react'
-import EmployeeList from './EmployeeList'
+import React, { Suspense } from 'react'
 import Navbar from '@/components/Navbar'
+import EmloyeeDataProvider from './EmloyeeDataProvider'
+import Loader from '@/components/Loader'
 
 const page = () => {
   return (
     <div>
-          <Navbar/>
-          <EmployeeList/>
+      <Navbar />
+      <Suspense fallback={<Loader />}>
+        <EmloyeeDataProvider />
+      </Suspense>
     </div>
   )
 }

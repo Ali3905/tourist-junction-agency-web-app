@@ -1,10 +1,15 @@
-import React from 'react'
-import TruckList from './TruckList'
+import React, { Suspense } from 'react'
+import Navbar from '@/components/Navbar'
+import Loader from '@/components/Loader'
+import TruckDataProvider from './TruckDataProvider'
 
 const page = () => {
   return (
     <div>
-        <TruckList/>
+      <Navbar />
+      <Suspense fallback={<Loader />}>
+        <TruckDataProvider />
+      </Suspense>
     </div>
   )
 }

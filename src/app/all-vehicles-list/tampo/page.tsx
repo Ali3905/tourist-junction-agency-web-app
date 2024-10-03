@@ -1,12 +1,15 @@
-import React from 'react'
-import TampoList from './TampoList'
+import React, { Suspense } from 'react'
 import Navbar from '@/components/Navbar'
+import Loader from '@/components/Loader'
+import TampoDataProvider from './TampoDataProvider'
 
 const page = () => {
   return (
     <div>
         <Navbar/>
-        <TampoList/>
+        <Suspense fallback={<Loader />}>
+          <TampoDataProvider />
+        </Suspense>
     </div>
   )
 }
