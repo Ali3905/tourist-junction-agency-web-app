@@ -21,12 +21,22 @@ export type FormField = {
 type FormProps = {
     formFields: FormField[],
     handler: (data: any, reset: () => void) => void,
+    defaultValues: any,
 }
 
 
-export const Form = ({ formFields, handler }: FormProps) => {
-    const { register, handleSubmit, reset, control, formState: { errors, isSubmitting } } = useForm()
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+export const Form = ({ formFields, handler, defaultValues }: FormProps) => {
+    
+    const {
+        register,
+        handleSubmit,
+        reset,
+        control,
+        formState: { errors, isSubmitting },
+      } = useForm({
+        defaultValues: defaultValues || {},
+      });
+      const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
     const submitHandler = async (data: any) => {
         await handler(data, reset)
@@ -87,7 +97,7 @@ export const Form = ({ formFields, handler }: FormProps) => {
                             }
                         </label>
                     } else if (field.type === "file") {
-                        return <FileInput field={field} errors={errors} register={register} />
+                        return <FileInput field={field} errors={errors} register={register} value={defaultValues && defaultValues[field.name] ? defaultValues[field.name] : null}  />
                     } else if (field.type === "select") {
                         return (
                             <label className='flex flex-col gap-[12px]'>
@@ -99,7 +109,7 @@ export const Form = ({ formFields, handler }: FormProps) => {
                                     render={({ field: { onChange, value } }) => (
                                         <SelectInput
                                             field={field}
-                                            value={value}
+                                            value={value || (defaultValues && defaultValues !== undefined ? defaultValues[field.name] : null)}
                                             onChange={onChange}
                                         />
                                     )}
@@ -148,10 +158,10 @@ export const Form = ({ formFields, handler }: FormProps) => {
                         return <label className='flex flex-col gap-[12px]'>
                             <span className='font-semibold'>{field.label}</span>
                             {errors[field.name] && errors[field.name]?.message &&
-                                    typeof errors[field.name]?.message === 'string' ? (
-                                    <span className='text-red-500'>{errors[field.name]?.message?.toString()}</span>
-                                ) : null
-                                }
+                                typeof errors[field.name]?.message === 'string' ? (
+                                <span className='text-red-500'>{errors[field.name]?.message?.toString()}</span>
+                            ) : null
+                            }
                             {field.options && field.options.map((option, i) => (
                                 <div key={i}>
                                     <Controller

@@ -4,14 +4,14 @@ import { deleteData } from '@/utils/api';
 
 // Define the props for the DailyRouteList component
 interface DailyRouteListProps {
-  data: DailyRoute[];
+  data?: DailyRoute[];
 }
 
 const DailyRouteList: React.FC<DailyRouteListProps> = ({ data }) => {
   const [deletedId, setDeletedId] = useState('')
   return (
     <div className="flex gap-4">
-      {data.map((route, index) => {
+      {data && data.length > 0 ? data?.map((route, index) => {
         if(route._id === deletedId) return;
         return <DailyRouteCard key={index} data={route} onDelete={async () => {
           await deleteData({
@@ -20,7 +20,7 @@ const DailyRouteList: React.FC<DailyRouteListProps> = ({ data }) => {
           });
           setDeletedId(route._id)
         }} />
-      })}
+      }): <p className='mx-auto'>No Daily Routes To Show</p> }
     </div>
   );
 };

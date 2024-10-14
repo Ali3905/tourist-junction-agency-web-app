@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormField } from "./Form";
 
 
 type FileInputProps = {
     field: FormField,
     register: any,
-    errors: any
+    errors: any,
+    value: string[] | string
 };
 
 // FileInput Component
-const FileInput = ({ field, register, errors }: FileInputProps) => {
+const FileInput = ({ field, register, errors, value }: FileInputProps) => {
     const { label, name, isMultiple = false } = field
     const [selectedFiles, setSelectedFiles] = useState<any[]>([]);
 
@@ -25,6 +26,12 @@ const FileInput = ({ field, register, errors }: FileInputProps) => {
             setSelectedFiles([files[0]]);
         }
     };
+
+    useEffect(()=>{
+        if (value) {
+            setSelectedFiles(value)
+        }
+    }, [value])
 
     return (
         <div>
@@ -47,7 +54,7 @@ const FileInput = ({ field, register, errors }: FileInputProps) => {
                     {selectedFiles.map((file, index) => (
                         <img
                             key={index}
-                            src={URL.createObjectURL(file)}
+                            src={typeof file === "string" ? file : URL.createObjectURL(file)}
                             alt={file.name}
                             style={{ width: '100px', height: '100px', objectFit: 'cover' }}
                         />
@@ -57,7 +64,7 @@ const FileInput = ({ field, register, errors }: FileInputProps) => {
                 selectedFiles[0] && (
                     <div style={{ marginTop: '10px' }}>
                         <img
-                            src={URL.createObjectURL(selectedFiles[0])}
+                            src={typeof selectedFiles === "string" ? selectedFiles :URL.createObjectURL(selectedFiles[0])}
                             alt={selectedFiles[0]?.name}
                             style={{ width: '100px', height: '100px', objectFit: 'cover' }}
                         />

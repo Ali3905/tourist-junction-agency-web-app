@@ -2,9 +2,12 @@ import React from 'react'
 import EmployeeCard from './EmployeeCard'
 import { deleteData } from '@/utils/api';
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { setEditData } from '../redux/editDataSlice';
 
 const EmployeeList = ({ data }: { data: Employee[] }) => {
   const router = useRouter()
+  const dispatch = useDispatch()
 
   return (
 
@@ -20,6 +23,10 @@ const EmployeeList = ({ data }: { data: Employee[] }) => {
               url: "/employee"
             });
             router.refresh(); // Refresh the page after deletion
+          }}
+          onUpdate={() => {
+            dispatch(setEditData(item))
+            router.push("/employee-details/edit")
           }}
         />
 

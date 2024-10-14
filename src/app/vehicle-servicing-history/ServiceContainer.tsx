@@ -4,14 +4,13 @@ import SearchBar from '@/components/SearchBar';
 import AddButton from '@/components/AddButton';
 import ServiceList from './ServiceList';
 import { useRouter } from 'next/navigation';
+import { Provider } from 'react-redux';
+import store from '../redux/store';
 
-const ServiceContainer = ({ data }: {data: VehicleService[]}) => {
-  
-
+const ServiceContainer = ({ data }: { data: VehicleService[] }) => {
   const [filteredData, setFilteredData] = useState<VehicleService[]>(data)
   const router = useRouter()
   const handleSearch = (query: string) => {
-    console.log({ query });
 
     // Normalize the query to lowercase for case-insensitive comparison
     const lowerCaseQuery = query.toLowerCase();
@@ -40,9 +39,11 @@ const ServiceContainer = ({ data }: {data: VehicleService[]}) => {
           placeholderText="Enter Vehicle No"
         />
       </div>
-      <AddButton buttonText={'Add vehicle servicing'} onClick={()=>router.push("/vehicle-servicing-history/create")}  />
+      <AddButton buttonText={'Add vehicle servicing'} onClick={() => router.push("/vehicle-servicing-history/create")} />
       {/* Container for the bus cards */}
-      <ServiceList data={filteredData} />
+      <Provider store={store}>
+        <ServiceList data={filteredData} />
+      </Provider>
     </div>
   );
 };

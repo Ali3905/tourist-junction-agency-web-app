@@ -4,7 +4,7 @@ import React from 'react'
 
 type HolidayYatraCardProps = {
   data: Tour,
-  onUpdate?: (id: string) => void,
+  onUpdate?: () => void,
   onDelete?: () => void,
 }
 

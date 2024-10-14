@@ -4,6 +4,8 @@ import SearchBar from '@/components/SearchBar';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import EmployeeList from './EmployeeList';
+import { Provider } from 'react-redux';
+import store from '../redux/store';
 
 const EmployeeContainer = ({ data }: { data: Employee[] }) => {
     const [filteredData, setFilteredData] = useState<Employee[]>(data)
@@ -40,7 +42,9 @@ const EmployeeContainer = ({ data }: { data: Employee[] }) => {
             </div>
             <AddButton buttonText={'Add Employee'} onClick={() => router.push("/employee-details/create")} />
 
-            <EmployeeList data={filteredData} />
+            <Provider store={store}>
+                <EmployeeList data={filteredData} />
+            </Provider>
         </div>
     )
 }

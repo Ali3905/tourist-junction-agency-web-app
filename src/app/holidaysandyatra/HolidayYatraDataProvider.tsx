@@ -15,12 +15,15 @@ const HolidayYatraDataProvider = async () => {
       }
     })
     data = res.data.data
-  } catch (error) {
+  } catch (error: any) {
+    console.log(error.response);
+    
     return <p className='flex items-center justify-center h-[80vh] w-full'>Could not fetch the Holiday yatra data</p>
   }
 
 
   return (
+    
    <HolidayYatraContainer data={data} />
   )
 }
