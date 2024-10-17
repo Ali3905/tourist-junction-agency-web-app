@@ -4,8 +4,10 @@ import SearchBar from '@/components/SearchBar';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import CarList from './CarList';
+import { Provider } from 'react-redux';
+import store from '@/app/redux/store';
 
-const CarContainer = ({data}: {data: Vehicle[]}) => {
+const CarContainer = ({ data }: { data: Vehicle[] }) => {
     const [filteredData, setFilteredData] = useState<Vehicle[]>(data)
     const router = useRouter()
     const handleSearch = (query: string) => {
@@ -35,8 +37,10 @@ const CarContainer = ({data}: {data: Vehicle[]}) => {
                     placeholderText="Search Tour Name"
                 />
             </div>
-            <AddButton buttonText={'Add Car'} onClick={()=>router.push("/all-vehicles-list/car/create")} />
-            <CarList data={filteredData} />
+            <AddButton buttonText={'Add Car'} onClick={() => router.push("/all-vehicles-list/car/create")} />
+            <Provider store={store}>
+                <CarList data={filteredData} />
+            </Provider>
         </div>
     )
 }

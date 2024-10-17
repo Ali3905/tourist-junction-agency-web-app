@@ -4,6 +4,8 @@ import DriverList from '@/components/DriverList'
 import { useRouter } from 'next/navigation'
 import SearchBar from '@/components/SearchBar'
 import AddButton from '@/components/AddButton'
+import { Provider } from 'react-redux'
+import store from '../redux/store'
 
 const DriversContainer = ({ data }: { data: Driver[] }) => {
     const [filteredData, setFilteredData] = useState(data)
@@ -36,8 +38,10 @@ const DriversContainer = ({ data }: { data: Driver[] }) => {
                     placeholderText="Search Location"
                 />
             </div>
-            <AddButton buttonText={"Add Driver"} onClick={()=>router.push("/mydrivers/create")} />
-            <DriverList data={filteredData} />
+            <AddButton buttonText={"Add Driver"} onClick={() => router.push("/mydrivers/create")} />
+            <Provider store={store}>
+                <DriverList data={filteredData} />
+            </Provider>
         </div>
     )
 }

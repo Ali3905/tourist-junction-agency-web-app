@@ -4,6 +4,8 @@ import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import EmptyVehiclesList from './EmptyVehiclesList'
 import AddButton from '@/components/AddButton'
+import { Provider } from 'react-redux'
+import store from '../redux/store'
 
 const EmptyVehicleContainer = ({ data }: { data: EmptyVehicle[] }) => {
     const [filteredData, setFilteredData] = useState(data)
@@ -36,8 +38,10 @@ const EmptyVehicleContainer = ({ data }: { data: EmptyVehicle[] }) => {
                     placeholderText="Search Tour Name"
                 />
             </div>
-            <AddButton buttonText={'Add Empty Vehicle'} onClick={()=>router.push("/create-empty-vehicles/create")} />
-            <EmptyVehiclesList data={filteredData} />
+            <AddButton buttonText={'Add Empty Vehicle'} onClick={() => router.push("/create-empty-vehicles/create")} />
+            <Provider store={store}>
+                <EmptyVehiclesList data={filteredData} />
+            </Provider>
         </div>
     )
 }

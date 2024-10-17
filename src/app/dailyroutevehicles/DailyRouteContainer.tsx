@@ -4,6 +4,8 @@ import SearchBar from '@/components/SearchBar';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import DailyRouteList from './DailyRouteList';
+import { Provider } from 'react-redux';
+import store from '../redux/store';
 
 const DailyRouteContainer = ({ data }: { data: DailyRoute[] }) => {
     const [filteredData, setFilteredData] = useState(data)
@@ -37,8 +39,10 @@ const DailyRouteContainer = ({ data }: { data: DailyRoute[] }) => {
                     placeholderText="Search Tour Name"
                 />
             </div>
-            <AddButton buttonText={'Add Daily Route'} onClick={()=>router.push("/dailyroutevehicles/create")} />
-            <DailyRouteList data={filteredData} />
+            <AddButton buttonText={'Add Daily Route'} onClick={() => router.push("/dailyroutevehicles/create")} />
+            <Provider store={store}>
+                <DailyRouteList data={filteredData} />
+            </Provider>
         </div>
     )
 }

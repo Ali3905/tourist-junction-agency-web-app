@@ -4,6 +4,8 @@ import SearchBar from '@/components/SearchBar'
 import AddButton from '@/components/AddButton'
 import CleanerList from './CleanerList'
 import { useRouter } from 'next/navigation'
+import store from '../redux/store'
+import { Provider } from 'react-redux'
 
 const CleanerContainer = ({ data }: { data: Cleaner[] }) => {
   const [filteredData, setFilteredData] = useState<Cleaner[]>(data)
@@ -37,8 +39,10 @@ const CleanerContainer = ({ data }: { data: Cleaner[] }) => {
           placeholderText="Search City"
         />
       </div>
-      <AddButton buttonText={'Add Cleaner'} onClick={()=>router.push("/cleaners-list/create")} />
-      <CleanerList data={filteredData} />
+      <AddButton buttonText={'Add Cleaner'} onClick={() => router.push("/cleaners-list/create")} />
+      <Provider store={store}>
+        <CleanerList data={filteredData} />
+      </Provider>
     </div>
   )
 }

@@ -11,8 +11,6 @@ const EmployeeContainer = ({ data }: { data: Employee[] }) => {
     const [filteredData, setFilteredData] = useState<Employee[]>(data)
     const router = useRouter()
     const handleSearch = (query: string) => {
-        console.log({ query });
-
         // Normalize the query to lowercase for case-insensitive comparison
         const lowerCaseQuery = query.toLowerCase();
 

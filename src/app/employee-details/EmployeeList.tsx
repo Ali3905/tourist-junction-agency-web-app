@@ -22,7 +22,6 @@ const EmployeeList = ({ data }: { data: Employee[] }) => {
               params: { employeeId: item._id },
               url: "/employee"
             });
-            router.refresh(); // Refresh the page after deletion
           }}
           onUpdate={() => {
             dispatch(setEditData(item))

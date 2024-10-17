@@ -21,7 +21,7 @@ export type FormField = {
 type FormProps = {
     formFields: FormField[],
     handler: (data: any, reset: () => void) => void,
-    defaultValues: any,
+    defaultValues?: any,
 }
 
 

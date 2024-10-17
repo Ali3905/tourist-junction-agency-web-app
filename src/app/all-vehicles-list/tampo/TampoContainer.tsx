@@ -4,8 +4,10 @@ import SearchBar from '@/components/SearchBar';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import TampoList from './TampoList';
+import { Provider } from 'react-redux';
+import store from '@/app/redux/store';
 
-const TampoContainer = ({data}: {data: Vehicle[]}) => {
+const TampoContainer = ({ data }: { data: Vehicle[] }) => {
     const [filteredData, setFilteredData] = useState(data)
     const router = useRouter()
     const handleSearch = (query: string) => {
@@ -35,8 +37,10 @@ const TampoContainer = ({data}: {data: Vehicle[]}) => {
                     placeholderText="Search Tour Name"
                 />
             </div>
-            <AddButton buttonText={'Add Tampo'} onClick={()=>router.push("/all-vehicles-list/tampo/create")} />
-            <TampoList data={filteredData} />
+            <AddButton buttonText={'Add Tampo'} onClick={() => router.push("/all-vehicles-list/tampo/create")} />
+            <Provider store={store}>
+                <TampoList data={filteredData} />
+            </Provider>
         </div>
     )
 }

@@ -4,9 +4,11 @@ import SearchBar from '@/components/SearchBar';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import PackageList from './PackageList';
+import { Provider } from 'react-redux';
+import store from '../redux/store';
 
 const PackageBookingContainer = ({ data }: { data: Package[] }) => {
-  const [filteredData, setFilteredData] = useState(data)
+    const [filteredData, setFilteredData] = useState(data)
     const router = useRouter()
     const handleSearch = (query: string) => {
 
@@ -36,8 +38,10 @@ const PackageBookingContainer = ({ data }: { data: Package[] }) => {
                     placeholderText="Search Tour Name"
                 />
             </div>
-            <AddButton buttonText={'Add Package Booking'} onClick={()=>router.push("/packagevehiclebooking/create")} />
-            <PackageList data={filteredData} />
+            <AddButton buttonText={'Add Package Booking'} onClick={() => router.push("/packagevehiclebooking/create")} />
+            <Provider store={store}>
+                <PackageList data={filteredData} />
+            </Provider>
         </div>
     )
 }
