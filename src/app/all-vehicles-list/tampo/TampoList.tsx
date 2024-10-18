@@ -1,9 +1,6 @@
 "use client";
 import React, { useState } from 'react';
 import VehicleCard from '../VehicleCard';
-import { TampoData } from '../../data'; // Import the dummy data
-import SearchBar from '@/components/SearchBar';
-import AddButton from '@/components/AddButton';
 import { deleteData } from '@/utils/api';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';

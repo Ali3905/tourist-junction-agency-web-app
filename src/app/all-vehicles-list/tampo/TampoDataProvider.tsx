@@ -3,7 +3,7 @@ import TampoContainer from './TampoContainer';
 import { fetchData } from '@/utils/api';
 
 const TampoDataProvider = async() => {
-    let data = await fetchData("/vehicle/TAMPO")
+    const data = await fetchData("/vehicle/TAMPO")
     
 
     if (data.success === false) {

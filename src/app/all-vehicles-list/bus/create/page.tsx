@@ -66,7 +66,7 @@ const page = () => {
 
         try {
 
-            const res = await axios({
+            await axios({
                 method: "post",
                 baseURL: `${process.env.NEXT_PUBLIC_SERVER}/api`,
                 url: "/vehicle",

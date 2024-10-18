@@ -1,6 +1,5 @@
 import Navbar from '@/components/Navbar'
 import React, { Suspense } from 'react'
-import CarList from './CarList'
 import Loader from '@/components/Loader'
 import CarDataProvider from './CarDataProvider'
 

@@ -1,12 +1,10 @@
 "use client";
 import { Form } from '@/components/Form';
-import React, { useEffect, useState } from 'react';
-// import { EditDataContext } from '@/context/EditDataProvider';
-import { busFormFields, employeeFormFields, tourFormFields } from "@/utils/FormFields"
+import React from 'react';
+import { busFormFields } from "@/utils/FormFields"
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/redux/store';
-import { getVehicleNumberDropdownOptions } from '@/utils/getDropdownOptions';
 
 const FormContainer = () => {
 
@@ -32,7 +30,7 @@ const FormContainer = () => {
     }
 
     try {
-      const res = await axios({
+      await axios({
         method: 'patch',
         baseURL: `${process.env.NEXT_PUBLIC_SERVER}/api`,
         url: '/vehicle',

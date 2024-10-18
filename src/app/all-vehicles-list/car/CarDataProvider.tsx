@@ -3,8 +3,7 @@ import { fetchData } from '@/utils/api';
 import CarContainer from './CarContainer';
 
 const CarDataProvider = async() => {
-    let data = await fetchData("/vehicle/CAR")
-    console.log({data});
+    const data = await fetchData("/vehicle/CAR")
     
 
     if (data.success === false) {

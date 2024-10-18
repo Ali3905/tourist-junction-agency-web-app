@@ -12,6 +12,7 @@ const FormContainer = () => {
   const editData = useSelector((state: RootState) => state.editData.editData)
 
   const handleSubmitTampoForm = async (data: any) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const formData = new FormData();
 
     for (const key in data) {
@@ -31,7 +32,7 @@ const FormContainer = () => {
     }
 
     try {
-      const res = await axios({
+      await axios({
         method: 'patch',
         baseURL: `${process.env.NEXT_PUBLIC_SERVER}/api`,
         url: '/vehicle',
@@ -43,8 +44,9 @@ const FormContainer = () => {
           authtoken: process.env.NEXT_PUBLIC_AUTH_TOKEN,
         },
       });
-      alert('Car Updated');
+      alert('Tampo Updated');
     } catch (error: any) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       alert(error?.response?.data?.message || error.message);
     }
   };

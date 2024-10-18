@@ -23,6 +23,7 @@ const page = () => {
     ]
 
     const handleSubmitCarForm = async (data: any, reset: () => void) => {
+         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         // Create a new FormData instance
         const formData = new FormData();
 
@@ -48,7 +49,7 @@ const page = () => {
 
         try {
 
-            const res = await axios({
+            await axios({
                 method: "post",
                 baseURL: `${process.env.NEXT_PUBLIC_SERVER}/api`,
                 url: "/vehicle",
@@ -61,6 +62,7 @@ const page = () => {
             alert("Car Created")
             reset()
         } catch (error: any) {
+             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             alert(error?.response?.data?.message || error.message)
         }
     }

@@ -3,8 +3,7 @@ import BusContainer from './BusContainer';
 import { fetchData } from '@/utils/api';
 
 const BusDataProvider = async() => {
-    let data = await fetchData("/vehicle/BUS")
-    console.log({data});
+    const data = await fetchData("/vehicle/BUS")
     
 
     if (data.success === false) {
