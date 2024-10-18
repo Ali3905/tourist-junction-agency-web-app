@@ -2,12 +2,12 @@
 import React, { useState } from 'react'
 import DriverList from '@/components/DriverList'
 import SearchBar from '@/components/SearchBar'
+import { Provider } from 'react-redux'
+import store from '../redux/store'
 
 const DriversContainer = ({ data }: { data: Driver[] }) => {
     const [filteredData, setFilteredData] = useState(data)
-    const handleSearch = (query: string) => {
-        console.log({ query });
-
+    const handleSearch = (query: string) => {   
         // Normalize the query to lowercase for case-insensitive comparison
         const lowerCaseQuery = query.toLowerCase();
 
@@ -33,7 +33,9 @@ const DriversContainer = ({ data }: { data: Driver[] }) => {
                     placeholderText="Search Location"
                 />
             </div>
+            <Provider store={store}>
             <DriverList data={filteredData} />
+            </Provider>
         </div>
     )
 }

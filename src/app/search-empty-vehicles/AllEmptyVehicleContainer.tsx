@@ -2,6 +2,8 @@
 import SearchBar from '@/components/SearchBar'
 import React, { useState } from 'react'
 import EmptyVehiclesList from '../create-empty-vehicles/EmptyVehiclesList'
+import { Provider } from 'react-redux'
+import store from '../redux/store'
 
 const AllEmptyVehicleContainer = ({ data }: { data: EmptyVehicle[] }) => {
     const [filteredData, setFilteredData] = useState(data)
@@ -33,7 +35,9 @@ const AllEmptyVehicleContainer = ({ data }: { data: EmptyVehicle[] }) => {
                     placeholderText="Search Tour Name"
                 />
             </div>
-            <EmptyVehiclesList data={filteredData} />
+            <Provider store={store}>
+                <EmptyVehiclesList data={filteredData} />
+            </Provider>
         </div>
     )
 }
