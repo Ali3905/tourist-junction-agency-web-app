@@ -1,6 +1,5 @@
 "use client"
 import React from 'react'
-import { TechnicianData } from '../data'
 import TechnicianCard from './TechnicianCard'
 
 const TechnicianList = ({ data }: { data: Technician[] }) => {

@@ -6,6 +6,7 @@ type CheckBoxProps = {
     field: FormField,
     option: { label: string, value: string | boolean }
     isChecked: boolean,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onChange: (event: any) => void,
     value: string
 }

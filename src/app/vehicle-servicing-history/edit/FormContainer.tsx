@@ -1,8 +1,6 @@
 "use client";
 import { Form } from '@/components/Form';
 import React, { useEffect, useState } from 'react';
-// import { EditDataContext } from '@/context/EditDataProvider';
-import { vehicleServiceFormFields } from "@/utils/FormFields"
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/redux/store';
@@ -24,7 +22,7 @@ const FormContainer = () => {
     { name: "date", id: "date", type: "date", label: "Date", validation: { required: "Date is required" } },
     { name: "bill", id: "bill", type: "file", label: "Bill", isMultiple: true, validation: { required: { value: true, message: "Bill Photos are required" } } },
   ]
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSubmitServiceForm = async (data: any) => {
     const formData = new FormData();
 
@@ -40,7 +38,7 @@ const FormContainer = () => {
     }
 
     try {
-      const res = await axios({
+      await axios({
         method: 'patch',
         baseURL: `${process.env.NEXT_PUBLIC_SERVER}/api`,
         url: '/service',
@@ -52,7 +50,8 @@ const FormContainer = () => {
           authtoken: process.env.NEXT_PUBLIC_AUTH_TOKEN,
         },
       });
-      alert('Holiday yatra Updated');
+      alert('Vehicle Service Updated');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       alert(error?.response?.data?.message || error.message);
     }

@@ -12,6 +12,7 @@ export async function fetchData(url: string) {
             }
         })
         return res.data.data
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error : any) {
         return  error.response.data
     }
@@ -38,6 +39,7 @@ export async function deleteData({params, url}: DeleteHandlerParams)  {
         })
         alert(res.data?.message || "Item Deleted")
         return res.data.data
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error:any) {
         return  error.response.data
     }

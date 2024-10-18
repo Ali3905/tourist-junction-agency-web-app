@@ -5,9 +5,7 @@ import Select from 'react-select';
 import axios from 'axios';
 
 const TechnicianForm = () => {
-  const { control, handleSubmit, setValue, watch } = useForm();
-  const [states, setStates] = useState([]);
-  const [cities, setCities] = useState([]);
+  const { control, handleSubmit, watch } = useForm();
   const [stateOptions, setStateOptions] = useState([]);
   const [cityOptions, setCityOptions] = useState([]);
 
@@ -16,7 +14,8 @@ const TechnicianForm = () => {
     axios.get('https://example.com/api/states') // Replace with your API endpoint
       .then(response => {
         const statesData = response.data; // Assuming response data is an array of states
-        setStateOptions(statesData.map(state => ({ value: state.code, label: state.name })));
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        setStateOptions(statesData.map((state: any) => ({ value: state.code, label: state.name })));
       })
       .catch(error => console.error('Error fetching states:', error));
   }, []);
@@ -28,13 +27,15 @@ const TechnicianForm = () => {
       axios.get(`https://example.com/api/cities?state=${selectedState.value}`) // Replace with your API endpoint
         .then(response => {
           const citiesData = response.data; // Assuming response data is an array of cities
-          setCityOptions(citiesData.map(city => ({ value: city.code, label: city.name })));
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          setCityOptions(citiesData.map((city: any) => ({ value: city.code, label: city.name })));
         })
         .catch(error => console.error('Error fetching cities:', error));
     }
   }, [watch('state')]);
 
-  const onSubmit = (data) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onSubmit = (data: any) => {
     // Handle form submission
     console.log('Form Data:', data);
   };
@@ -83,7 +84,7 @@ const TechnicianForm = () => {
                   <Select
                     id={field.id}
                     onChange={onChange}
-                    value={field.options.find(option => option.value === value)}
+                    value={field.options?.find(option => option === value)}
                     options={field.options}
                     ref={ref}
                     className="border border-gray-300 rounded"

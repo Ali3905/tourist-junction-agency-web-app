@@ -11,6 +11,7 @@ export const getDrivers = async() => {
             }
         })
         return res.data.data
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         alert(error?.response?.data?.message || "Could not fetch the driver data")
         console.log(error?.response?.data?.message); 
@@ -28,6 +29,7 @@ export const getCleaners = async() => {
             }
         })
         return res.data.data
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         alert(error?.response?.data?.message || "Could not fetch the cleaner data")
         console.log(error?.response?.data?.message); 
@@ -45,6 +47,7 @@ export const getVehicles = async() => {
             }
         })
         return res.data.data
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         alert(error?.response?.data?.message || "Could not fetch the cleaner data")
         console.log(error?.response?.data?.message); 

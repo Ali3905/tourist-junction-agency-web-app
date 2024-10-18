@@ -1,8 +1,6 @@
 "use client";
 import { Form } from '@/components/Form';
 import React, { useEffect, useState } from 'react';
-// import { EditDataContext } from '@/context/EditDataProvider';
-import { driverFormFields } from "@/utils/FormFields"
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/redux/store';
@@ -33,7 +31,7 @@ const FormContainer = () => {
     { name: "photos", id: "photos", type: "file", label: "Photos", isMultiple: true, validation: { required: { value: true, message: "Photos are required" } } },
   ]
 
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSubmitYatraForm = async (data: any) => {
     const formData = new FormData();
 
@@ -56,7 +54,7 @@ const FormContainer = () => {
     }
 
     try {
-      const res = await axios({
+      await axios({
         method: 'patch',
         baseURL: `${process.env.NEXT_PUBLIC_SERVER}/api`,
         url: '/emptyVehicle',
@@ -68,7 +66,8 @@ const FormContainer = () => {
           authtoken: process.env.NEXT_PUBLIC_AUTH_TOKEN,
         },
       });
-      alert('Driver Updated');
+      alert('Empty Vehicle Updated');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       alert(error?.response?.data?.message || error.message);
     }

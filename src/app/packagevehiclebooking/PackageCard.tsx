@@ -35,9 +35,10 @@ const PackageCard: React.FC<PackageCardProps> = ({ pkg, onDelete, onUpdate }) =>
     { name: "instuctions", id: "instuctions", label: "Instructions", type: "text" },
   ]
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleFinalizePackage = async (data: any, reset: () => void) => {
     try {
-      const res = await axios({
+      await axios({
         method: "patch",
         baseURL: `${process.env.NEXT_PUBLIC_SERVER}/api`,
         url: `/packageBooking/finalize?bookingId=${pkg._id}`,
@@ -49,6 +50,7 @@ const PackageCard: React.FC<PackageCardProps> = ({ pkg, onDelete, onUpdate }) =>
       // return res.data.success
       alert("Package Booking Finalized")
       reset()
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       alert(error?.response?.data?.message || error.message)
     }

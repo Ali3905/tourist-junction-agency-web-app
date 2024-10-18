@@ -3,7 +3,7 @@ import React from 'react'
 import PackageBookingContainer from './PackageBookingContainer'
 
 const PackageBookingDataProvider = async() => {
-    let data = await fetchData("/packageBooking")
+    const data = await fetchData("/packageBooking")
     
 
     if (data.success === false) {

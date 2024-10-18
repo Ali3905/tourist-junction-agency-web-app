@@ -130,6 +130,7 @@ type Vehicle = {
   vehicleWeightInKGS: number;
   chassisNumber?: string;
   amenities: string[];
+  [key: string]: string | undefined;
 }
 
 type VehicleService = {
@@ -181,7 +182,7 @@ type User = {
   type: "AGENCY" | "CUSTOMER" | "ADMIN";
   drivers: Driver[];
   employees: Employee[];
-  technicians: any[];
+  technicians: Technician[];
   cleaners: Cleaner[];
   vehicles: Vehicle[];
   dailyRoutes: string[];

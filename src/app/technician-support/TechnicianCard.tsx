@@ -1,19 +1,15 @@
 "use client"; // Mark it as a client component
 
-import React, { useState } from 'react';
-import Modal from '../../components/Modal'; // Adjust the import path as necessary
+import React from 'react';
 
 interface TechnicianCardProps {
   data: Technician;
 }
 
 const TechnicianCard: React.FC<TechnicianCardProps> = ({ data }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { name, state, city, mobileNumber, alternateNumber, vehicleType } = data;
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
 
   return (
     <div className="max-w-sm rounded-lg overflow-hidden shadow-md hover:shadow-lg mt-6 transition-shadow duration-300">

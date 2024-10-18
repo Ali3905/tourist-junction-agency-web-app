@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 type EditDataType = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     editData : any;
 }
 
@@ -17,7 +18,7 @@ const editDataSlice = createSlice({
         setEditData: (state, action) => {
             state.editData = action.payload;
         },
-        clearEditData: (state, action) => {
+        clearEditData: (state) => {
             state.editData = null;
         },
     },

@@ -19,7 +19,7 @@ const page = () => {
         { name: "aadharCard", id: "aadharCard", type: "file", label: "Aadhar Card", validation: { required: { value: true, message: "Aadhar Card is required" } } },
         { name: "photo", id: "photo", type: "file", label: "Photo", validation: { required: { value: true, message: "Photo is required" } } }
     ];
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleSubmitCleanerForm = async (data: any) => {
         // Create a new FormData instance
         const formData = new FormData();
@@ -40,8 +40,7 @@ const page = () => {
         }
 
         try {
-
-            const res = await axios({
+            await axios({
                 method: "post",
                 baseURL: `${process.env.NEXT_PUBLIC_SERVER}/api`,
                 url: "/cleaner",
@@ -52,6 +51,7 @@ const page = () => {
             })
             // return res.data.success
             alert("Cleaner Created")
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             alert(error?.response?.data?.message || error.message)
         }

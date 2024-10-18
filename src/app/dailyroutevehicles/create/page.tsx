@@ -1,10 +1,22 @@
 "use client"
 import { Form } from '@/components/Form'
+import Loader from '@/components/Loader'
 import { getVehicleNumberDropdownOptions } from '@/utils/getDropdownOptions'
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 
 const page = () => {
+    return (
+        <Suspense fallback={<Loader />}>
+            <FormContainer />
+        </Suspense>
+    )
+}
+
+export default page
+
+
+const FormContainer = () => {
     const [vehicleOptions, setVehicleOptions] = useState([])
 
     const getVehicleOptions = async () => {
@@ -48,6 +60,7 @@ const page = () => {
         { name: "seatingArrangement", id: "seatingArrangement", type: "file", label: "Seating Arrangement", validation: { required: { value: true, message: "Seating Arrangement Photoc is required" } } },
     ]
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleSubmitTampoForm = async (data: any, reset: () => void) => {
         // Create a new FormData instance
         const formData = new FormData();
@@ -78,7 +91,7 @@ const page = () => {
 
         try {
 
-            const res = await axios({
+            await axios({
                 method: "post",
                 baseURL: `${process.env.NEXT_PUBLIC_SERVER}/api`,
                 url: "/busRoute",
@@ -90,6 +103,7 @@ const page = () => {
             // return res.data.success
             alert("Daily Route Created")
             reset()
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             alert(error?.response?.data?.message || error.message)
         }
@@ -106,5 +120,3 @@ const page = () => {
         </div>
     )
 }
-
-export default page

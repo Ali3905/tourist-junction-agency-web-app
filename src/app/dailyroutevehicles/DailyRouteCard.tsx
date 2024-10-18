@@ -7,11 +7,7 @@ import { getCleanerIdrDropdownOptions, getDriverIdrDropdownOptions } from '@/uti
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-// Define the type for amenities
-type Amenity = string;
 
-
-// Define the props for the DailyRouteCard component
 interface DailyRouteCardProps {
   data: DailyRoute;
   onDelete?: (id: string) => void;
@@ -38,11 +34,12 @@ const DailyRouteCard: React.FC<DailyRouteCardProps> = ({ data, onDelete, onUpdat
     { name: "instuctions", id: "instuctions", label: "Instructions", type: "text" },
   ]
 
-  const { _id, vehicle, agencyName, departurePlace, destinationPlace, primaryDriver, secondaryDriver, cleaner, departureTime, instructions, status, amenities = [], arrivalTime, pickupPoint, dropoffPoint, ticketFare, officeAddress, phonepeNumber, mobileNumbers = [], doesProvideCourierService, doesBookTrainTickets, doesCarryTwoWheelers, QR, seatingArrangement, discount } = data;
+  const { _id, vehicle, agencyName, departurePlace, destinationPlace, primaryDriver, secondaryDriver, cleaner, departureTime, instructions,  amenities = [], arrivalTime, pickupPoint, dropoffPoint, ticketFare, officeAddress, phonepeNumber, mobileNumbers = [], doesProvideCourierService, doesBookTrainTickets, doesCarryTwoWheelers, QR, seatingArrangement, discount } = data;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleFinalizePackage = async (data: any, reset: () => void) => {
     try {
-      const res = await axios({
+       await axios({
         method: "patch",
         baseURL: `${process.env.NEXT_PUBLIC_SERVER}/api`,
         url: `/busRoute/finalize?routeId=${_id}`,
@@ -54,6 +51,7 @@ const DailyRouteCard: React.FC<DailyRouteCardProps> = ({ data, onDelete, onUpdat
       // return res.data.success
       alert("Daily Route Finalized")
       reset()
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       alert(error?.response?.data?.message || error.message)
     }

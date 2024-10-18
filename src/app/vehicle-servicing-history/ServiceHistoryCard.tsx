@@ -16,7 +16,7 @@ const ServiceHistoryCard = ({ data, onDelete, onUpdate, photo }: ServiceHistoryC
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const { vehicle, garageName, garageNumber, date, workDescription, bill, } = data;
+  const { vehicle, garageName, garageNumber, date, workDescription, } = data;
 
   return (
     <div className="relative max-w-sm rounded-lg overflow-hidden shadow-md hover:shadow-lg mt-6 transition-shadow duration-300">

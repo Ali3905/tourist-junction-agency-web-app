@@ -3,7 +3,7 @@ import React from 'react'
 import DocumentsContainer from './DocumentsContainer';
 
 const DocumentsDataProvider = async() => {
-    let data = await fetchData("/vehicle/BUS")
+    const data = await fetchData("/vehicle/BUS")
 
 
     if (data.success === false) {

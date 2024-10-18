@@ -1,6 +1,7 @@
 import React from 'react';
 
-const UpdateButton = ({ onUpdate }) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const UpdateButton = ({ onUpdate }: any) => {
   return (
     <button 
       onClick={onUpdate} 

@@ -1,7 +1,6 @@
 "use client"
 import React, { useState } from 'react'
 import DriverList from '@/components/DriverList'
-import { useRouter } from 'next/navigation'
 import SearchBar from '@/components/SearchBar'
 
 const DriversContainer = ({ data }: { data: Driver[] }) => {

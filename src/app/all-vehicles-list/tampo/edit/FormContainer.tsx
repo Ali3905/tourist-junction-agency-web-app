@@ -11,8 +11,8 @@ const FormContainer = () => {
 
   const editData = useSelector((state: RootState) => state.editData.editData)
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSubmitTampoForm = async (data: any) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const formData = new FormData();
 
     for (const key in data) {
@@ -45,8 +45,8 @@ const FormContainer = () => {
         },
       });
       alert('Tampo Updated');
-    } catch (error: any) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       alert(error?.response?.data?.message || error.message);
     }
   };

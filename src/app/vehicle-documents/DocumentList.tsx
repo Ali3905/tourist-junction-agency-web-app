@@ -3,12 +3,14 @@
 import React from 'react';
 import DocumentCard from './DocumetCard';
 
-const DocumentList = ({ data }) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const DocumentList = ({ data }: any) => {
   return (
     <div className="flex justify-center space-x-4 flex-wrap py-8">
       {
-        data.map((veh)=>{
-          return <DocumentCard data={veh} />
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        data.map((veh: any, i: number)=>{
+          return <DocumentCard data={veh} key={i} />
         })
       }
     </div>

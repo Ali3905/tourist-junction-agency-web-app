@@ -13,6 +13,7 @@ const page = () => {
     { name: "photos", id: "photos", type: "file", label: "Photos", isMultiple: true }
   ]
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSubmitYatraForm = async (data: any) => {
     // Create a new FormData instance
     const formData = new FormData();
@@ -34,7 +35,7 @@ const page = () => {
 
     try {
 
-      const res = await axios({
+      await axios({
         method: "post",
         baseURL: `${process.env.NEXT_PUBLIC_SERVER}/api`,
         url: "/tour",
@@ -44,6 +45,7 @@ const page = () => {
         }
       })
       alert("Holiday yatra Created")
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       alert(error?.response?.data?.message || error.message)
     }

@@ -4,7 +4,7 @@ import React from 'react'
 import HolidayYatraCard from './HolidayYatraCard'
 import { deleteData } from '@/utils/api'
 import { useRouter } from 'next/navigation'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setEditData } from '../redux/editDataSlice'
 
 const HolidayYatraList = ({ data }: { data: Tour[] }) => {

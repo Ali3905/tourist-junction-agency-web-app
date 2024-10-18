@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -49,7 +50,7 @@ export const Form = ({ formFields, handler, defaultValues }: FormProps) => {
             {
                 formFields.map((field) => {
                     if (field.type === "text" || field.type === "number") {
-                        return <label className='flex flex-col gap-2'>
+                        return <label className='flex flex-col gap-2' key={field.id}>
                             {field.label}
                             <input {...register(field.name, field.validation)} type={field.type} id={field.id} className='border-2 px-4 py-2' />
 
@@ -60,7 +61,7 @@ export const Form = ({ formFields, handler, defaultValues }: FormProps) => {
                             }
                         </label>
                     } else if (field.type === "password") {
-                        return <label className='flex flex-col gap-2'>
+                        return <label className='flex flex-col gap-2' key={field.id}>
                             {field.label}
                             <span className='border-2 px-4 py-2 focus:outline flex'>
                                 <input {...register(field.name, field.validation)} type={isPasswordVisible ? "text" : "password"} id={field.id} className='outline-none flex-grow' />
@@ -73,7 +74,7 @@ export const Form = ({ formFields, handler, defaultValues }: FormProps) => {
                             }
                         </label>
                     } else if (field.type === "date") {
-                        return <label className='flex flex-col gap-2'>
+                        return <label className='flex flex-col gap-2' key={field.id}>
                             {field.label}
                             <span className='border-2 px-4 py-2 focus:outline flex'>
                                 <input {...register(field.name, field.validation)} type={"date"} id={field.id} className='outline-none flex-grow' />
@@ -85,7 +86,7 @@ export const Form = ({ formFields, handler, defaultValues }: FormProps) => {
                             }
                         </label>
                     } else if (field.type === "time") {
-                        return <label className='flex flex-col gap-2'>
+                        return <label className='flex flex-col gap-2' key={field.id}>
                             {field.label}
                             <span className='border-2 px-4 py-2 focus:outline flex'>
                                 <input {...register(field.name, field.validation)} type={"time"} id={field.id} className='outline-none flex-grow' />
@@ -97,10 +98,10 @@ export const Form = ({ formFields, handler, defaultValues }: FormProps) => {
                             }
                         </label>
                     } else if (field.type === "file") {
-                        return <FileInput field={field} errors={errors} register={register} value={defaultValues && defaultValues[field.name] ? defaultValues[field.name] : null}  />
+                        return <FileInput key={field.id} field={field} errors={errors} register={register} value={defaultValues && defaultValues[field.name] ? defaultValues[field.name] : null}  />
                     } else if (field.type === "select") {
                         return (
-                            <label className='flex flex-col gap-[12px]'>
+                            <label className='flex flex-col gap-[12px]' key={field.id}>
                                 <span >{field.label}</span>
                                 <Controller
                                     name={field.name}
@@ -122,7 +123,7 @@ export const Form = ({ formFields, handler, defaultValues }: FormProps) => {
                             </label>
                         )
                     } else if (field.type === "checkbox") {
-                        return <label className='flex flex-col gap-[12px]'>
+                        return <label className='flex flex-col gap-[12px]' key={field.id}>
                             <span>
                                 <span className='font-semibold'>{field.label}</span>
                                 {errors[field.name] && errors[field.name]?.message &&
@@ -155,7 +156,7 @@ export const Form = ({ formFields, handler, defaultValues }: FormProps) => {
                             ))}
                         </label>
                     } else if (field.type === 'radio') {
-                        return <label className='flex flex-col gap-[12px]'>
+                        return <label className='flex flex-col gap-[12px]' key={field.id}>
                             <span className='font-semibold'>{field.label}</span>
                             {errors[field.name] && errors[field.name]?.message &&
                                 typeof errors[field.name]?.message === 'string' ? (

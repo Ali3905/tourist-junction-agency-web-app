@@ -10,7 +10,7 @@ import { RootState } from '@/app/redux/store';
 const FormContainer = () => {
 
   const editData = useSelector((state: RootState) => state.editData.editData)
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSubmitTruckForm = async (data: any) => {
     const formData = new FormData();
 
@@ -31,7 +31,7 @@ const FormContainer = () => {
     }
 
     try {
-      const res = await axios({
+      await axios({
         method: 'patch',
         baseURL: `${process.env.NEXT_PUBLIC_SERVER}/api`,
         url: '/vehicle/truck',
@@ -44,6 +44,7 @@ const FormContainer = () => {
         },
       });
       alert('Truck Updated');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       alert(error?.response?.data?.message || error.message);
     }

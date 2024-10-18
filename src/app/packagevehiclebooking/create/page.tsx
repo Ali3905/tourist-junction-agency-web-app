@@ -1,10 +1,21 @@
 "use client"
 import { Form } from '@/components/Form'
+import Loader from '@/components/Loader'
 import { getVehicleIdDropdownOptions } from '@/utils/getDropdownOptions'
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 
 const page = () => {
+    return (
+        <Suspense fallback={<Loader />}>
+            <FormContainer />
+        </Suspense>
+    )
+}
+
+export default page
+
+const FormContainer = () => {
     const [vehicleOptions, setVehicleOptions] = useState([])
 
     const getVehicleOptions = async () => {
@@ -40,18 +51,19 @@ const page = () => {
         { name: "pickupPoint", id: "pickupPoint", type: "text", label: "Pick up point", validation: { required: "Pickup point is required" } },
     ]
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleSubmitTampoForm = async (data: any, reset: () => void) => {
 
         const departureDate = new Date(data.departureDate).toISOString().split('T')[0]
         const departureTimeString = `${departureDate}T${data.departureTime}:00`;
 
         const returnDate = new Date(data.returnDate).toISOString().split('T')[0]
-        const returnTimeString = `${departureDate}T${data.returnTime}:00`;
+        const returnTimeString = `${returnDate}T${data.returnTime}:00`;
 
         data.returnTime = returnTimeString
         data.departureTime = departureTimeString
         try {
-            const res = await axios({
+            await axios({
                 method: "post",
                 baseURL: `${process.env.NEXT_PUBLIC_SERVER}/api`,
                 url: "/packageBooking",
@@ -63,6 +75,7 @@ const page = () => {
             // return res.data.success
             alert("Package Booking Created")
             reset()
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             alert(error?.response?.data?.message || error.message)
         }
@@ -79,5 +92,3 @@ const page = () => {
         </div>
     )
 }
-
-export default page

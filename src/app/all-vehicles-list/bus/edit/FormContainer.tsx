@@ -9,7 +9,7 @@ import { RootState } from '@/app/redux/store';
 const FormContainer = () => {
 
   const editData = useSelector((state: RootState) => state.editData.editData)
-
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSubmitBusForm = async (data: any) => {
     const formData = new FormData();
 
@@ -43,6 +43,7 @@ const FormContainer = () => {
         },
       });
       alert('Bus Updated');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       alert(error?.response?.data?.message || error.message);
     }

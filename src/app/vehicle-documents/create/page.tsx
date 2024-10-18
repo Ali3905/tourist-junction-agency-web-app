@@ -5,6 +5,14 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
 const page = () => {
+    return (
+        <FormContainer />
+    )
+}
+
+export default page
+
+const FormContainer = () => {
     const [vehicleOptions, setVehicleOptions] = useState([])
 
     const getVehicleOptions = async () => {
@@ -20,6 +28,7 @@ const page = () => {
         { name: "PUC", id: "PUC", type: "file", label: "PUC", validation: { required: { value: true, message: "PUC Photo is required" } } },
     ]
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleSubmitTampoForm = async (data: any, reset: () => void) => {
         // Create a new FormData instance
         const formData = new FormData();
@@ -53,7 +62,7 @@ const page = () => {
 
         try {
 
-            const res = await axios({
+             await axios({
                 method: "patch",
                 baseURL: `${process.env.NEXT_PUBLIC_SERVER}/api`,
                 url: "/vehicle/addDocuments",
@@ -68,6 +77,7 @@ const page = () => {
             // return res.data.success
             alert("Vehicle documents added")
             reset()
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             alert(error?.response?.data?.message || error.message)
         }
@@ -84,5 +94,3 @@ const page = () => {
         </div>
     )
 }
-
-export default page

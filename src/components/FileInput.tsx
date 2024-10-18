@@ -4,7 +4,9 @@ import { FormField } from "./Form";
 
 type FileInputProps = {
     field: FormField,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     register: any,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     errors: any,
     value: string[] | string
 };
@@ -12,7 +14,8 @@ type FileInputProps = {
 // FileInput Component
 const FileInput = ({ field, register, errors, value }: FileInputProps) => {
     const { label, name, isMultiple = false } = field
-    const [selectedFiles, setSelectedFiles] = useState<any[]>([]);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [selectedFiles, setSelectedFiles] = useState<any[] | string | string[]>([]);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
@@ -27,7 +30,7 @@ const FileInput = ({ field, register, errors, value }: FileInputProps) => {
         }
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         if (value) {
             setSelectedFiles(value)
         }
@@ -51,7 +54,7 @@ const FileInput = ({ field, register, errors, value }: FileInputProps) => {
             {/* Display selected images */}
             {isMultiple ? (
                 <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
-                    {selectedFiles.map((file, index) => (
+                    {Array.isArray(selectedFiles) && selectedFiles.map((file, index) => (
                         <img
                             key={index}
                             src={typeof file === "string" ? file : URL.createObjectURL(file)}
@@ -64,7 +67,7 @@ const FileInput = ({ field, register, errors, value }: FileInputProps) => {
                 selectedFiles[0] && (
                     <div style={{ marginTop: '10px' }}>
                         <img
-                            src={typeof selectedFiles === "string" ? selectedFiles :URL.createObjectURL(selectedFiles[0])}
+                            src={typeof selectedFiles === "string" ? selectedFiles : URL.createObjectURL(selectedFiles[0])}
                             alt={selectedFiles[0]?.name}
                             style={{ width: '100px', height: '100px', objectFit: 'cover' }}
                         />

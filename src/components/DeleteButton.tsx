@@ -1,6 +1,8 @@
 import React from 'react';
 
-const DeleteButton = ({ onDelete }) => {
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const DeleteButton = ({ onDelete }: any) => {
   return (
     <button 
       onClick={onDelete} 

@@ -14,14 +14,14 @@ interface EmptyVehicleCardProps {
 
 const EmptyVehicleCard: React.FC<EmptyVehicleCardProps> = ({ data, onUpdate, onDelete }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
+  const [selectedPhotoIndex] = useState(0);
 
-  const { vehicle, moreInformation, departurePlace, destinationPlace, departureTime, departureDate, mobileNumber, photos, agency } = data;
+  const { vehicle, moreInformation, departurePlace, destinationPlace, departureTime, departureDate, mobileNumber, photos } = data;
 
-  const openModal = (index: number) => {
-    setSelectedPhotoIndex(index);
-    setIsModalOpen(true);
-  };
+  // const openModal = (index: number) => {
+  //   setSelectedPhotoIndex(index);
+  //   setIsModalOpen(true);
+  // };
 
   const closeModal = () => setIsModalOpen(false);
 

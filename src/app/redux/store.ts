@@ -1,6 +1,7 @@
 "use client"
 
-const { configureStore } = require("@reduxjs/toolkit");
+
+import { configureStore } from "@reduxjs/toolkit";
 import editDataReducer from "./editDataSlice"
 
 

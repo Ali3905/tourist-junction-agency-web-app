@@ -22,8 +22,8 @@ const page = () => {
         { name: "isAC", id: "isAC", type: "radio", label: "Is AC", options: [{ label: "Yes", value: "true" }, { label: "No", value: "false" }], validation: { required: { value: true, message: "Is AC is required" } } },
         // { name: "type", id: "type", type: "text", label: "Body Type" },
         { name: "isSeatPushBack", id: "isSeatPushBack", type: "radio", options: [{ label: "Yes", value: "true" }, { label: "No", value: "false" }], label: "Is Seat Push Back" },
-        { name: "isForRent", id: "isForRent", type: "radio", options: [{ label: "Yes", value: "true" }, { label: "No", value: "false" }], label: "Is For Rent", validation: { required: { value: true, message: "This field is required" }  }},
-        { name: "isForSell", id: "isForSell", type: "radio", options: [{ label: "Yes", value: "true" }, { label: "No", value: "false" }], label: "Is For Sell",  validation: { required: { value: true, message: "This field is required" } } },
+        { name: "isForRent", id: "isForRent", type: "radio", options: [{ label: "Yes", value: "true" }, { label: "No", value: "false" }], label: "Is For Rent", validation: { required: { value: true, message: "This field is required" } } },
+        { name: "isForSell", id: "isForSell", type: "radio", options: [{ label: "Yes", value: "true" }, { label: "No", value: "false" }], label: "Is For Sell", validation: { required: { value: true, message: "This field is required" } } },
         { name: "isLuggageSpace", id: "isLuggageSpace", type: "radio", options: [{ label: "Yes", value: "true" }, { label: "No", value: "false" }], label: "Is Luggage Space Available" },
         { name: "isSleeper", id: "isSleeper", type: "radio", options: [{ label: "Yes", value: "true" }, { label: "No", value: "false" }], label: "Is Sleeper" },
         { name: "curtain", id: "curtain", type: "radio", options: [{ label: "Yes", value: "true" }, { label: "No", value: "false" }], label: "Curtain Available" },
@@ -39,7 +39,7 @@ const page = () => {
             ]
         }
     ]
-
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleSubmitBusForm = async (data: any, reset: () => void) => {
         // Create a new FormData instance
         const formData = new FormData();
@@ -78,6 +78,7 @@ const page = () => {
             // return res.data.success
             alert("Bus Created")
             reset()
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             alert(error?.response?.data?.message || error.message)
         }

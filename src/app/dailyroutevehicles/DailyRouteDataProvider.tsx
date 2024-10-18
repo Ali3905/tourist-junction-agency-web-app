@@ -3,7 +3,7 @@ import React from 'react'
 import DailyRouteContainer from './DailyRouteContainer'
 
 const DailyRouteDataProvider = async() => {
-    let data = await fetchData("/busRoute")
+    const data = await fetchData("/busRoute")
     
 
     if (data.success === false) {

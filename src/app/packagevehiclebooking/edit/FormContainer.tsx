@@ -43,19 +43,19 @@ const FormContainer = () => {
       { name: "note", id: "note", type: "text", label: "Add Note", validation: { required: "Note is required" } },
       { name: "pickupPoint", id: "pickupPoint", type: "text", label: "Pick up point", validation: { required: "Pickup point is required" } },
   ]
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSubmitYatraForm = async (data: any) => {
     const departureDate = new Date(data.departureDate).toISOString().split('T')[0]
         const departureTimeString = `${departureDate}T${data.departureTime}:00`;
 
         const returnDate = new Date(data.returnDate).toISOString().split('T')[0]
-        const returnTimeString = `${departureDate}T${data.returnTime}:00`;
+        const returnTimeString = `${returnDate}T${data.returnTime}:00`;
 
         data.returnTime = returnTimeString
         data.departureTime = departureTimeString
 
     try {
-      const res = await axios({
+      await axios({
         method: 'patch',
         baseURL: `${process.env.NEXT_PUBLIC_SERVER}/api`,
         url: '/packageBooking',
@@ -68,6 +68,7 @@ const FormContainer = () => {
         },
       });
       alert('Package Booking Updated');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       alert(error?.response?.data?.message || error.message);
     }

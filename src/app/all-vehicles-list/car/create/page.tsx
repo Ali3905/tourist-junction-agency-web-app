@@ -22,8 +22,8 @@ const page = () => {
         { name: "isForSell", id: "isForSell", type: "radio", options: [{ label: "Yes", value: "true" }, { label: "No", value: "false" }], label: "Is For Sell", validation: { required: { value: true, message: "This field is required" } } },
     ]
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleSubmitCarForm = async (data: any, reset: () => void) => {
-         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         // Create a new FormData instance
         const formData = new FormData();
 
@@ -61,8 +61,8 @@ const page = () => {
             // return res.data.success
             alert("Car Created")
             reset()
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
-             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             alert(error?.response?.data?.message || error.message)
         }
     }

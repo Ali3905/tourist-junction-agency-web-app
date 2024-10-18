@@ -1,7 +1,13 @@
 import Link from 'next/link'
 import React from 'react'
 
-const ServicesCard = ({ title, imageSrc, link }) => {
+type ServiceProps = {
+  title: string;
+  imageSrc: string;
+  link: string;
+}
+
+const ServicesCard = ({ title, imageSrc, link }: ServiceProps) => {
   return (
     <Link href={link}>
     <div className="max-w-sm flex flex-col items-center justify-center rounded-lg overflow-hidden sm:shadow-md hover:shadow-lg mt-6 transition-shadow duration-300">

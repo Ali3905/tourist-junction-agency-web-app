@@ -1,21 +1,18 @@
 "use client";
 import { Form } from '@/components/Form';
-import React, { useEffect, useState } from 'react';
-// import { EditDataContext } from '@/context/EditDataProvider';
-import { employeeFormFields, tourFormFields } from "@/utils/FormFields"
+import React from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/redux/store';
-import { getVehicleNumberDropdownOptions } from '@/utils/getDropdownOptions';
 
 const FormContainer = () => {
   
   const editData = useSelector((state: RootState) => state.editData.editData)
-  const [vehicleOptions, setVehicleOptions] = useState([])
+  // const [vehicleOptions, setVehicleOptions] = useState([])
 
-    const getVehicleOptions = async () => {
-        setVehicleOptions(await getVehicleNumberDropdownOptions())
-    }
+    // const getVehicleOptions = async () => {
+    //     setVehicleOptions(await getVehicleNumberDropdownOptions())
+    // }
     const formFields = [
       { name: "name", id: "name", type: "text", label: "Name", validation: { required: { value: true, message: "Name is required" } } },
       { name: "password", id: "password", type: "password", label: "Password",  validation: { required: { value: true, message: "Password is required" }, minLength: { value: 5, message: "Password must be atleast 5 characters" } } },
@@ -37,7 +34,7 @@ const FormContainer = () => {
       { name: "aadharCard", id: "aadharCard", type: "file", label: "Aadhar Card", validation: { required: { value: true, message: "Aadhar card is required" } } },
       { name: "photo", id: "photo", type: "file", label: "Photo", validation: { required: { value: true, message: "Photo is required" } } }
     ];
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSubmitYatraForm = async (data: any) => {
     const formData = new FormData();
 
@@ -53,7 +50,7 @@ const FormContainer = () => {
     }
 
     try {
-      const res = await axios({
+      await axios({
         method: 'patch',
         baseURL: `${process.env.NEXT_PUBLIC_SERVER}/api`,
         url: '/employee',
@@ -65,15 +62,16 @@ const FormContainer = () => {
           authtoken: process.env.NEXT_PUBLIC_AUTH_TOKEN,
         },
       });
-      alert('Holiday yatra Updated');
+      alert('Employee Updated');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       alert(error?.response?.data?.message || error.message);
     }
   };
 
-  useEffect(()=>{
-    getVehicleOptions()
-  }, [])
+  // useEffect(()=>{
+  //   getVehicleOptions()
+  // }, [])
 
   return (
     <div className='max-w-[1400px] mx-auto'>
