@@ -1,9 +1,11 @@
 import React from 'react'
 import BusContainer from './BusContainer';
 import { fetchData } from '@/utils/api';
+import { cookies } from 'next/headers';
 
 const BusDataProvider = async() => {
-    const data = await fetchData("/vehicle/BUS")
+    const authtoken = cookies().get('authtoken')?.value;
+    const data = await fetchData("/vehicle/BUS", authtoken)
     
 
     if (data.success === false) {

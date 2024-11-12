@@ -1,21 +1,15 @@
 import React from 'react'
 import axios from 'axios';
 import CleanerContainer from './CleanerContainer';
+import { cookies } from 'next/headers';
+import { fetchData } from '@/utils/api';
 
 const CleanerDataProvider = async() => {
-    let data;
-    try {
-        const res = await axios({
-            method: "get",
-            baseURL: `${process.env.NEXT_PUBLIC_SERVER}/api`,
-            url: "/cleaner",
-            headers: {
-                authtoken: process.env.NEXT_PUBLIC_AUTH_TOKEN
-            }
-        })
-        data = res.data.data
-    } catch (error) {
-        return <p className='flex items-center justify-center h-[80vh] w-full'>Could not fetch the cleaners data</p>
+    const authtoken = cookies().get('authtoken')?.value;
+    const data = await fetchData("/cleaner", authtoken)
+    
+    if (data.success === false) {
+       return <p className='flex items-center justify-center h-[80vh] w-full' >Could Not Fetch the data of Cleaners</p> 
     }
     return (
         <CleanerContainer data={data} />

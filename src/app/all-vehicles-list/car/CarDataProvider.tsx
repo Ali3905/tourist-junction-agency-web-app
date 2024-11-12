@@ -1,9 +1,11 @@
 import React from 'react'
 import { fetchData } from '@/utils/api';
 import CarContainer from './CarContainer';
+import { cookies } from 'next/headers';
 
 const CarDataProvider = async() => {
-    const data = await fetchData("/vehicle/CAR")
+    const authtoken = cookies().get('authtoken')?.value;
+    const data = await fetchData("/vehicle/CAR", authtoken)
     
 
     if (data.success === false) {

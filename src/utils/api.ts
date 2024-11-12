@@ -1,16 +1,20 @@
 import axios from "axios"
+import { redirect } from "next/navigation"
 
-
-export async function fetchData(url: string) {
+export async function fetchData(url: string, authtoken: string) {
+    if (!authtoken) {
+        redirect("/login")
+    }
     try {
         const res = await axios({
             method: "get",
             baseURL: `${process.env.NEXT_PUBLIC_SERVER}/api`,
             url: url,
             headers: {
-                authtoken: process.env.NEXT_PUBLIC_AUTH_TOKEN
+                authtoken
             }
         })
+        
         return res.data.data
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error : any) {

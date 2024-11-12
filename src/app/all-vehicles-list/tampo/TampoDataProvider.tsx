@@ -1,9 +1,11 @@
 import React from 'react'
 import TampoContainer from './TampoContainer';
 import { fetchData } from '@/utils/api';
+import { cookies } from 'next/headers';
 
 const TampoDataProvider = async() => {
-    const data = await fetchData("/vehicle/TAMPO")
+    const authtoken = cookies().get('authtoken')?.value;
+    const data = await fetchData("/vehicle/TAMPO", authtoken)
     
 
     if (data.success === false) {

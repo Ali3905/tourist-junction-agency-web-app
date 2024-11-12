@@ -1,9 +1,11 @@
 import { fetchData } from '@/utils/api'
 import React from 'react'
 import PackageBookingContainer from './PackageBookingContainer'
+import { cookies } from 'next/headers';
 
 const PackageBookingDataProvider = async() => {
-    const data = await fetchData("/packageBooking")
+    const authtoken = cookies().get('authtoken')?.value;
+    const data = await fetchData("/packageBooking", authtoken)
     
 
     if (data.success === false) {

@@ -1,26 +1,17 @@
 import React from 'react'
 import axios from 'axios'
 import HolidayYatraContainer from './HolidayYatraContainer'
+import { cookies } from 'next/headers';
+import { fetchData } from '@/utils/api';
 
 const HolidayYatraDataProvider = async () => {
 
-  let data;
-  try {
-    const res = await axios({
-      method: "get",
-      baseURL: `${process.env.NEXT_PUBLIC_SERVER}/api`,
-      url: "/tour",
-      headers: {
-        authtoken: process.env.NEXT_PUBLIC_AUTH_TOKEN
-      }
-    })
-    data = res.data.data
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    console.log(error.response);
+  const authtoken = cookies().get('authtoken')?.value;
+    const data = await fetchData("/tour", authtoken)
     
-    return <p className='flex items-center justify-center h-[80vh] w-full'>Could not fetch the Holiday yatra data</p>
-  }
+    if (data.success === false) {
+       return <p className='flex items-center justify-center h-[80vh] w-full' >Could Not Fetch the data of Holiday yatras</p> 
+    }
 
 
   return (
