@@ -1,6 +1,7 @@
 "use client"
 
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -11,6 +12,7 @@ type FormType = {
 
 const page = () => {
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm()
+    const router = useRouter()
     const onSubmit = async (data: FormType) => {
         try {
             const res = await axios({
@@ -21,6 +23,7 @@ const page = () => {
             })  
             
             document.cookie = `authtoken=${res.data.authToken}; path=/;`
+            router.push("/home")
             alert("You have logged in to your account")
         } catch (error) {
             console.log(error);

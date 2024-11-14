@@ -66,7 +66,7 @@ const PackageCard: React.FC<PackageCardProps> = ({ pkg, onDelete, onUpdate }) =>
         <DeleteButton onDelete={onDelete} />
       </div>
       <h2 className="font-bold text-lg mb-2">Package Details</h2>
-      <p className="text-gray-600">Vehicle: {pkg.vehicle.number}</p>
+      <p className="text-gray-600">Vehicle: {pkg?.vehicle?.number}</p>
       <p className="text-gray-600">Other Vehicle: {pkg.otherVehicle?.number}</p>
       {pkg.primaryDriver && <p className="text-gray-600">Primary Driver: {pkg.primaryDriver.name}</p>}
       {pkg.secondaryDriver && <p className="text-gray-600">Secondary Driver: {pkg.secondaryDriver.name}</p>}
